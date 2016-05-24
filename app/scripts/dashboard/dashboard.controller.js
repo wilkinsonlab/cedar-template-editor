@@ -68,7 +68,7 @@ define([
     vm.setSortOption = setSortOption;
     vm.showCreateFolder = showCreateFolder;
     //vm.showFavorites = cedarUser.getUIPreferences().populateATemplate.opened;
-    vm.showFavorites = true;
+    vm.showFavorites = false;
     vm.showFilters = false;
     vm.showFloatingMenu = false;
     vm.showInfoPanel = showInfoPanel;

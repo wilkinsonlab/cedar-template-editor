@@ -101,7 +101,7 @@
         <div class="sidebar-inner" cedar-sticky-left-menu="true">
 
           <!-- toolbar -->
-          <div id="toolbar">
+          <div id="toolbar" class="toolbar">
             <ul>
               <li ng-repeat="fieldType in fieldTypes | limitTo : 4">
                 <a ng-click="addFieldToTemplate(fieldType.cedarType)"><i class="{{fieldType.iconClass}}"></i></a>
@@ -158,23 +158,24 @@
     </div>
     <!-- /.row -->
     <!-- search browse modal for adding elements -->
-    <div class="modal fade controlled-terms-modal" tabindex="-1" id="{{searchBrowseModalId}}" data-backdrop="static">
+    <div class="modal fade search-browse-modal" tabindex="-1" id="{{searchBrowseModalId}}" data-backdrop="static">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close controlled-terms-modal-field-close" data-dismiss="modal"
-                aria-label="Close"><span aria-hidden="true"><img
-                src="/img/close_modal.png" width="22"/></span></button>
+
 
             <div class="nav-container" id="headerCtrl" ng-controller="HeaderCtrl as hc">
               <div class="navbar-header">
-                <div>
+                <div class=" navbar nav-search">
+                  <button type="button" class="col-sm-1 pull-right close" data-dismiss="modal"
+                      aria-label="Close"><span aria-hidden="true"><img
+                      src="/img/close_modal.png" width="22"/></span></button>
 
-                  <div class="center col-sm-8 col-sm-offset-2 nav-search">
                     <form >
-                      <div class="form-group  floating-label-wrapper">
-                        <input autocomplete="off" ng-keyup="$event.keyCode == 13 && hc.search(hc.searchTerm)" type="search"
-                            class="form-control search-input"
+                      <div class="form-group  floating-label-wrapper col-sm-8 col-sm-offset-2">
+
+                        <input  autocomplete="off" ng-keyup="$event.keyCode == 13 && hc.search(hc.searchTerm)" type="search"
+                            class="form-control search-input  "
                             id="search" placeholder="Search" aria-label="Search" ng-model="hc.searchTerm"
                             with-floating-label/>
 
@@ -182,14 +183,17 @@
                         <a class="clear clear-search" ng-show="hc.searchTerm" ng-click="hc.search('')">
                           <span class="fa fa-remove"></span></a>
                       </div>
+
                     </form>
-                  </div>
+
+
+
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-body">
-            <div class="search-browse-modal">
+            <div >
               <cedar-search-browse-picker
                   select-resource-callback="selectElementFromPicker"
                   pick-resource-callback="pickElementFromPicker"

@@ -9106,10 +9106,10 @@ body {
   height: 100%;
 }
 body {
-  background: #f8f8f8;
+  background: #e8e8e8;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #333;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 a {
   -webkit-transition: all 0.3s 0.1s;
@@ -9156,7 +9156,6 @@ body.search-browse-modal .controls-bar {
   margin: 0 30px;
 }
 body.search-browse-modal .all-items-view {
-  background: #F9F9FB;
   min-height: 350px;
 }
 body.search-browse-modal .footer-buttons {
@@ -9181,7 +9180,7 @@ body.search-browse-modal .footer-buttons button.canc {
   color: #fff;
   background-color: #2e5365;
   margin-bottom: 0;
-  min-height: 80px;
+  min-height: 60px;
   border: none;
 }
 .navbar #page-title {
@@ -9191,7 +9190,7 @@ body.search-browse-modal .footer-buttons button.canc {
   padding-right: 20px;
 }
 .navbar .nav-container {
-  padding: 10px 30px;
+  padding: 0 30px;
 }
 .navbar i.fa.fa-search {
   font-size: 22px;
@@ -9233,9 +9232,10 @@ body.search-browse-modal .footer-buttons button.canc {
   background-image: url(../img/cedar-logo-main.png);
   background-repeat: no-repeat;
   width: 200px;
-  height: 80px;
+  height: 60px;
   margin-top: 0px;
   margin-left: 10px;
+  background-size: 150px;
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
@@ -9248,8 +9248,8 @@ body.search-browse-modal .footer-buttons button.canc {
   }
 }
 .navbar .navbar-back {
-  height: 80px;
-  margin-top: 0;
+  height: 60px;
+  margin-top: 10px;
   margin-left: 10px;
 }
 .navbar .navbar-back .back-arrow {
@@ -9336,17 +9336,17 @@ body.search-browse-modal .footer-buttons button.canc {
   margin-bottom: 5px;
 }
 .navbar .nav-search {
-  margin-top: 23px;
+  margin-top: 13px;
 }
 #angular-views-entry {
   height: 100%;
 }
 .controls-bar {
-  padding: 25px 40px;
-  background-color: #ffffff;
+  padding: 10px 40px;
+  background-color: #f8f8f8;
   color: #5795ba;
-  border-bottom: 5px solid #eaeaea;
-  top: 100px;
+  box-shadow: 0 3px 6px 0 #aaa;
+  top: 60px;
 }
 .controls-bar i {
   font-size: 20px;
@@ -9462,13 +9462,14 @@ body.search-browse-modal .footer-buttons button.canc {
   color: #666666;
 }
 .search-browse-spacer {
-  padding-top: 89px;
+  padding-top: 28px;
 }
 /* Begin Form Populate Gray Modal Slide Up/Down Section */
 .form-populate {
   color: #666666;
   padding: 40px 0;
   background-color: #eaeaea;
+  display: none;
 }
 .form-populate h4 {
   margin: 0;
@@ -9477,26 +9478,31 @@ body.search-browse-modal .footer-buttons button.canc {
   text-transform: uppercase;
 }
 .form-populate .populate-form-boxes .form-box {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 120px;
   border: 1px solid #ebebeb;
   box-shadow: 4px 4px #e0e0e0;
   background: #ffffff;
-  margin: 10px auto 20px;
+  margin: 10px auto 10px;
   cursor: default;
 }
 .form-populate .populate-form-boxes .form-box .box-content {
   color: #5795ba;
-  padding: 45px 55px;
-  font-size: 16px;
+  padding: 20px 0 0;
+  font-size: 14px;
   display: block;
 }
 .form-populate .populate-form-boxes .form-box .box-content i {
   font-size: 36px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
 }
 .form-populate .populate-form-boxes .form-box .box-content p {
   line-height: 1;
+  margin: 0 10px;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .form-populate #fsModal {
   background: #eaeaea;
@@ -9566,7 +9572,6 @@ body.search-browse-modal .footer-buttons button.canc {
   color: #666666;
   padding: 40px 0;
   position: relative;
-  height: 100%;
   /* Off Canvas */
 }
 .all-items-view .push-pull-box {
@@ -9576,6 +9581,7 @@ body.search-browse-modal .footer-buttons button.canc {
   padding: 5px 10px;
   top: 0;
   right: 0px;
+  display: none;
 }
 .all-items-view .push-pull-box .fa-caret-down {
   display: none;
@@ -9593,29 +9599,33 @@ body.search-browse-modal .footer-buttons button.canc {
   text-transform: uppercase;
 }
 .all-items-view .populate-form-boxes .selected > .form-box {
-  border: 1px solid #5795ba;
+  box-shadow: 0 0 5px 0 #aaa;
 }
 .all-items-view .populate-form-boxes .form-box {
-  width: 220px;
-  height: 220px;
-  border: 1px solid #ebebeb;
-  box-shadow: 4px 4px #e0e0e0;
+  width: 200px;
+  height: 120px;
   background: #ffffff;
-  margin: 10px auto 20px;
+  margin: 10px auto 10px;
   cursor: default;
+  border: 1px solid #ddd;
 }
 .all-items-view .populate-form-boxes .form-box .box-content {
   color: #5795ba;
-  padding: 25px 5px;
-  font-size: 16px;
+  padding: 20px 0 0;
+  font-size: 14px;
   display: block;
 }
 .all-items-view .populate-form-boxes .form-box .box-content i {
   font-size: 36px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .all-items-view .populate-form-boxes .form-box .box-content p {
   line-height: 1;
+  margin: 0 10px;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .all-items-view .populate-form-boxes .form-box .quick-details-box {
   display: none;
@@ -9751,11 +9761,10 @@ body.search-browse-modal .footer-buttons button.canc {
 .all-items-view .sidebar-offcanvas-left,
 .all-items-view .sidebar-offcanvas-right {
   position: fixed;
-  top: 189px;
+  top: 118px;
   width: 20%;
-  /* 6 columns */
   padding: 0;
-  background: #eaeaea;
+  background: #fcfcfc;
   height: 100%;
   overflow: hidden;
 }
@@ -10364,7 +10373,7 @@ body.search-browse-modal a.navbar-brand {
 .form-control:focus ~ .floating-label,
 .form-control:not(.empty) ~ .floating-label,
 .form-control.ng-invalid ~ .floating-label {
-  top: -15px;
+  top: -10px;
   left: 0;
   font-size: 11px;
   opacity: 0.6;
@@ -12131,7 +12140,7 @@ p.instructions {
 .sidebar-inner.sticky {
   position: fixed;
   top: 0px;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 .cardinality-options select {
   padding: 5px;
@@ -12919,6 +12928,10 @@ body.modal-open .controlled-terms-modal {
   overflow: visible;
   height: auto;
 }
+body.modal-open .search-browse-modal {
+  overflow: visible;
+  height: auto;
+}
 body.modal-open .modal-backdrop {
   background-color: transparent;
   opacity: 1;
@@ -12938,6 +12951,9 @@ body.modal-open .modal-backdrop {
   background: #ffffff;
 }
 body .template-header .controlled-terms-modal {
+  margin-left: 0;
+}
+body .template-header .search-broswse-modal {
   margin-left: 0;
 }
 .template-body form .autocomplete-label-wrapper.has-constraint .ui-select-container ~ .input-indicator-icons .cedar-svg-help-circle {
@@ -13141,9 +13157,10 @@ body .template-header .controlled-terms-modal {
 }
 .field-root {
   padding: 5px;
-  border: 1px solid #d2d2d2;
+  border: 1px solid #ddd;
   margin-bottom: 10px;
   margin-top: 5px;
+  background-color: #fafafa;
 }
 .sortable-icon {
   background: url("/img/drag-me.png") no-repeat;
@@ -13168,6 +13185,51 @@ table.apiKey td {
   vertical-align: top;
   padding: 5px;
   margin: 0px;
+}
+.search-browse-modal {
+  position: absolute;
+}
+.search-browse-modal .modal-dialog {
+  width: 1020px;
+  height: 100%;
+  padding: 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.search-browse-modal .modal-content {
+  height: 100%;
+  background: #eaf2f2;
+  border-radius: 0;
+  -o-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+}
+.search-browse-modal .modal-header {
+  border-bottom: none;
+  padding: 10px 20px;
+}
+.search-browse-modal .modal-header .close {
+  margin-top: 10px;
+}
+.search-browse-modal .modal-header .navbar {
+  background-color: transparent;
+  border-color: #5795ba;
+}
+.search-browse-modal .modal-body {
+  padding: 0 100px 100px;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  margin-top: 39px;
+}
+.search-browse-modal .modal-body .class-actions {
+  margin-top: 30px;
+}
+.search-browse-modal .modal-body .controls-bar {
+  box-shadow: none;
+}
+.search-browse-modal .element-title {
+  margin-bottom: 20px;
+  font-size: 1.2em;
 }
 @font-face {
   font-family: "project-cedar";
@@ -13579,34 +13641,35 @@ div.errorTechnicalDetails textarea {
   font-weight: bold !important;
   font-size: 20px !important;
 }
-#toolbar {
+.toolbar {
   position: relative;
   border: 1px solid #d2d2d2;
   width: 60px;
   margin-top: 40px;
+  background: #fafafa;
 }
-#toolbar .more {
+.toolbar .more {
   font-size: 20px;
 }
-#toolbar .search {
+.toolbar .search {
   border-top: 1px solid #d2d2d2;
 }
-#toolbar .item {
+.toolbar .item {
   text-align: left;
   padding: 5px;
   padding-left: 30px;
 }
-#toolbar ul {
+.toolbar ul {
   margin: 10px;
   padding: 5px;
 }
-#toolbar ul li {
+.toolbar ul li {
   list-style: none;
   margin: 5px auto;
   text-align: center;
   padding: 5px;
 }
-#toolbar .other-elements {
+.toolbar .other-elements {
   position: absolute;
   right: 70px;
   border: 1px solid #fff;
@@ -13619,32 +13682,32 @@ div.errorTechnicalDetails textarea {
   color: #666666;
   padding: 10px;
 }
-#toolbar .other-elements .pull-left,
-#toolbar .other-elements .pull-right {
+.toolbar .other-elements .pull-left,
+.toolbar .other-elements .pull-right {
   width: 45%;
   text-transform: uppercase;
 }
-#toolbar .other-elements .list-unstyled li {
+.toolbar .other-elements .list-unstyled li {
   margin-bottom: 10px;
   text-transform: uppercase;
 }
-#toolbar .other-elements .list-unstyled li a {
+.toolbar .other-elements .list-unstyled li a {
   color: #666666;
   font-weight: 500;
 }
-#toolbar .other-elements .list-unstyled li a i {
+.toolbar .other-elements .list-unstyled li a i {
   color: #5795ba;
   padding-right: 10px;
 }
-#toolbar .other-elements .top-half,
-#toolbar .other-elements .bottom-half {
+.toolbar .other-elements .top-half,
+.toolbar .other-elements .bottom-half {
   padding: 30px;
   border-bottom: 1px solid #eaeaea;
 }
-#toolbar .other-elements .search-part {
+.toolbar .other-elements .search-part {
   border: none;
 }
-#toolbar .other-elements .search-part a {
+.toolbar .other-elements .search-part a {
   display: block;
   padding: 30px 35px;
   color: #666666;
@@ -13652,15 +13715,15 @@ div.errorTechnicalDetails textarea {
   font-weight: 500;
   width: 100%;
 }
-#toolbar .other-elements .search-part a i {
+.toolbar .other-elements .search-part a i {
   color: #5795ba;
   padding-right: 10px;
   text-align: right;
 }
-#toolbar .other-elements .top-half:after,
-#toolbar .other-elements .bottom-half:after,
-#toolbar .other-elements .top-half:before,
-#toolbar .other-elements .bottom-half:before {
+.toolbar .other-elements .top-half:after,
+.toolbar .other-elements .bottom-half:after,
+.toolbar .other-elements .top-half:before,
+.toolbar .other-elements .bottom-half:before {
   clear: both;
   content: '';
 }

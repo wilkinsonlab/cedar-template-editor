@@ -1,6 +1,6 @@
 <div class="controls-bar clearfix row-fluid navbar-fixed-top">
   <div class="pull-left">
-    <ul class="list-inline filternav">
+    <ul class="list-inline filternav" ng-if="dc.onDashboard()">
       <li><a href="#" data-toggle="offcanvas" ng-click="dc.toggleFilters()"><i class="fa fa-plus-circle"></i></a></li>
       <li>Filters</li>
     </ul>
@@ -21,8 +21,20 @@
           <li><a ng-click="dc.setSortOption('lastUpdatedOnTS')"><span translate="DASHBOARD.sort.lastUpdatedOnTS"></span></a></li>
         </ul>
       </li>
+
+
+      <li ng-if="dc.onDashboard()"><i class="fa fa-sort inline graytext"></i>
+        <ul class="dropnav">
+          <li><a href="">Name</a></li>
+          <li><a href="">Created</a></li>
+          <li><a href="">Updated</a></li>
+        </ul>
+      </li>
+      <li><a ><i class="fa fa-trash"></i></a></li>
       <li ng-show="dc.resourceView != 'grid'"><a ng-click="dc.resourceView = 'grid'"><i class="fa fa-th graytext"></i></a></li>
       <li ng-show="dc.resourceView != 'list'"><a ng-click="dc.resourceView = 'list'"><i class="fa fa-list-ul graytext"></i></a></li>
+      <li><a ><i class="fa fa-info-circle"></i></a></li>
+      <li ng-show="dc.resourceView != 'grid'"><a ng-click="dc.resourceView = 'grid'"><i class="fa fa-th graytext"></i></a></li>
       <li ng-if="dc.onDashboard()" class="inline divider-vertical graytext"></li>
       <li ng-if="dc.onDashboard()"><i class="fa fa-ellipsis-v inline graytext"></i>
         <ul class="dropnav">
@@ -35,7 +47,7 @@
 </div>
 <div class="search-browse-spacer"></div>
 <!--gray populate a form modal slide up/down section -->
-<section ng-if="dc.onDashboard()" class="form-populate collapse in" id="favorites">
+<section ng-if="dc.onDashboard()  && dc.showFavorites" class="form-populate collapse in" id="favorites">
   <!-- container -->
   <div class="container">
     <div class="row">
@@ -55,7 +67,7 @@
           <a href="#n" class="box-content text-center">
             <i ng-class="dc.getResourceIconClass(form)" class="fa"></i>
             <p>{{ form.name }}</p>
-            <p>{{ form.description }}</p>
+            <!--<p>{{ form.description }}</p>-->
           </a>
         </div>
       </div>
@@ -212,7 +224,7 @@
             <div class="box-content text-center">
               <i class="fa" ng-class="dc.getResourceIconClass(resource)"></i>
               <p>{{ resource.name }}</p>
-              <p>{{ resource.description }}</p>
+              <!--<p>{{ resource.description }}</p>-->
               <div class="quick-details-box" ng-show="dc.onDashboard()">
                 <ul class="list-inline">
                   <li ng-if="resource.resourceType == 'template'"><button title="Populate" class="btn btn-sm btn-info btn-circle" ng-click="dc.launchInstance(resource)"><i class="fa fa-check-square-o"></i></button></li>
