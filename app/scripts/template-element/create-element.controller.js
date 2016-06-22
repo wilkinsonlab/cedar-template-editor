@@ -94,6 +94,10 @@ define([
     };
     getElement();
 
+    var ef = new ElementFactory();
+    var element = ef.templateElement();
+    $rootScope.cedarElement = element;
+
     var populateCreatingFieldOrElement = function () {
       $scope.invalidFieldStates = {};
       $scope.invalidElementStates = {};

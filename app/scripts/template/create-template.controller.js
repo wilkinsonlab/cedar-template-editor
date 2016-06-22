@@ -73,6 +73,10 @@ define([
         };
         getTemplate();
 
+        var ef = new ElementFactory();
+        var template = ef.template();
+        $rootScope.cedarTemplate = template;
+
         var populateCreatingFieldOrElement = function () {
           $scope.invalidFieldStates = {};
           $scope.invalidElementStates = {};

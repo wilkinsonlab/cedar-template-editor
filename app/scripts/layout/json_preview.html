@@ -1,5 +1,5 @@
 <div ng-show="$root.showRender" id="templateJSON" ng-if="($root.jsonToSave || stripTmpFields()) | json ">
-  <h5>Template JSON</h5>
+  <h5>Template/Element JSON</h5>
   <pre id='form-json-preview'>{{ ($root.jsonToSave || stripTmpFields()) | json }}</pre>
 </div>
 <div ng-show="$root.showOutput" id="outputJSON" ng-if="model || json">
@@ -7,3 +7,8 @@
   <pre>{{ model | json }}</pre>
 </div>
 
+<h5>New Element JSON</h5>
+<pre id='form-json-preview'>{{$root.cedarElement | json }}</pre>
+
+<h5>New Template JSON</h5>
+<pre id='form-json-preview'>{{$root.cedarTemplate | json }}</pre>
