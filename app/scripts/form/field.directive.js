@@ -1055,6 +1055,15 @@ define([
                 $rootScope.toggleElement(domId);
             };
 
+            $scope.initRadioDefaultOption = function () {
+
+                if (!$rootScope.schemaOf($scope.field)._ui.hasOwnProperty('defaultOption')) {
+                    console.log($rootScope.schemaOf($scope.field)._ui.options[0]['text']);
+                    $rootScope.schemaOf($scope.field)._ui.defaultOption=$rootScope.schemaOf($scope.field)._ui.options[0]['text'];
+                }
+
+            }
+
 
 
 
