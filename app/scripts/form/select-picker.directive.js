@@ -32,14 +32,14 @@ define([
           // If returning to an already populated select list field, load selections
           default_array = $scope.model._value;
 
-        } else if ($scope.field && $scope.field._ui.defaultOption) {
+        } else if ($scope.field && $scope.field._valueConstraints.literals.defaultOption) {
           default_array = [];
 
           // If default select options have been set for an empty field
-          var defaultOptions = $scope.field._ui.defaultOption;
+          var defaultOption = $scope.field._valueConstraints.literals.defaultOption;
 
-          for (var property in defaultOptions) {
-            if (defaultOptions.hasOwnProperty(property)) {
+          for (var property in defaultOption) {
+            if (defaultOption.hasOwnProperty(property)) {
               // Push into array that is set via $element.selectpicker 'val' method
               default_array.push(property);
             }

@@ -1,297 +1,303 @@
 'use strict';
 
 define([
-  'angular'
+    'angular'
 ], function (angular) {
-  // TODO: required by template module; more?
-  angular.module('cedar.templateEditor.service.stagingService', [])
-      .service('StagingService', StagingService);
+    // TODO: required by template module; more?
+    angular.module('cedar.templateEditor.service.stagingService', [])
+        .service('StagingService', StagingService);
 
-  StagingService.$inject = ["$rootScope", "$document", "TemplateElementService", "DataManipulationService",
-                            "ClientSideValidationService", "UIMessageService", "$timeout", "AuthorizedBackendService",
-                            "CONST"];
+    StagingService.$inject = ["$rootScope", "$document", "TemplateElementService", "DataManipulationService",
+        "ClientSideValidationService", "UIMessageService", "$timeout", "AuthorizedBackendService",
+        "CONST"];
 
-  function StagingService($rootScope, $document, TemplateElementService, DataManipulationService,
-                          ClientSideValidationService,
-                          UIMessageService, $timeout, AuthorizedBackendService, CONST) {
+    function StagingService($rootScope, $document, TemplateElementService, DataManipulationService,
+                            ClientSideValidationService,
+                            UIMessageService, $timeout, AuthorizedBackendService, CONST) {
 
-    var service = {
-      serviceId        : "StagingService",
-      pageId           : null,
-      stagingObjectType: CONST.stagingObject.NONE
-    };
+        var service = {
+            serviceId: "StagingService",
+            pageId: null,
+            stagingObjectType: CONST.stagingObject.NONE
+        };
 
-    service.configure = function (pageId) {
-      this.pageId = pageId;
-      this.stagingObjectType = CONST.stagingObject.NONE;
-      this.updateStatus();
-    };
+        service.configure = function (pageId) {
+            this.pageId = pageId;
+            this.stagingObjectType = CONST.stagingObject.NONE;
+            this.updateStatus();
+        };
 
-    service.addField = function () {
-      this.stagingObjectType = CONST.stagingObject.FIELD;
-      this.updateStatus();
-    };
+        service.addField = function () {
+            this.stagingObjectType = CONST.stagingObject.FIELD;
+            this.updateStatus();
+        };
 
-    service.addElement = function () {
-      this.stagingObjectType = CONST.stagingObject.ELEMENT;
-      this.updateStatus();
-    };
+        service.addElement = function () {
+            this.stagingObjectType = CONST.stagingObject.ELEMENT;
+            this.updateStatus();
+        };
 
-    service.removeObject = function () {
-      this.stagingObjectType = CONST.stagingObject.NONE;
-      this.updateStatus();
-    };
+        service.removeObject = function () {
+            this.stagingObjectType = CONST.stagingObject.NONE;
+            this.updateStatus();
+        };
 
-    service.moveIntoPlace = function () {
-      this.stagingObjectType = CONST.stagingObject.NONE;
-      this.updateStatus();
-    };
+        service.moveIntoPlace = function () {
+            this.stagingObjectType = CONST.stagingObject.NONE;
+            this.updateStatus();
+        };
 
-    service.resetPage = function () {
-      this.stagingObjectType = CONST.stagingObject.NONE;
-      this.updateStatus();
-    };
+        service.resetPage = function () {
+            this.stagingObjectType = CONST.stagingObject.NONE;
+            this.updateStatus();
+        };
 
-    service.isEmpty = function () {
-      return this.stagingObjectType == CONST.stagingObject.NONE;
-    };
+        service.isEmpty = function () {
+            return this.stagingObjectType == CONST.stagingObject.NONE;
+        };
 
-    service.updateStatus = function () {
-      $rootScope.stagingVisible = (this.stagingObjectType != CONST.stagingObject.NONE);
-    };
+        service.updateStatus = function () {
+            $rootScope.stagingVisible = (this.stagingObjectType != CONST.stagingObject.NONE);
+        };
 
-    service.addElementWithId = function ($scope, elementId) {
-      $scope.staging = {};
-      $scope.previewForm = {};
+        service.addElementWithId = function ($scope, elementId) {
+            $scope.staging = {};
+            $scope.previewForm = {};
 
-      AuthorizedBackendService.doCall(
-          TemplateElementService.getTemplateElement(elementId),
-          function (response) {
-            var newElement = response.data;
-            newElement.minItems = 0;
-            newElement.maxItems = 1;
-            $scope.staging[newElement['@id']] = newElement;
-            $timeout(function () {
-              var fieldName = DataManipulationService.getFieldName(newElement._ui.title);
-              $scope.previewForm.properties = {};
-              $scope.previewForm.properties[fieldName] = newElement;
-            });
-          },
-          function (err) {
-            UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
-          }
-      );
-    };
+            AuthorizedBackendService.doCall(
+                TemplateElementService.getTemplateElement(elementId),
+                function (response) {
+                    var newElement = response.data;
+                    newElement.minItems = 0;
+                    newElement.maxItems = 1;
+                    $scope.staging[newElement['@id']] = newElement;
+                    $timeout(function () {
+                        var fieldName = DataManipulationService.getFieldName(newElement._ui.title);
+                        $scope.previewForm.properties = {};
+                        $scope.previewForm.properties[fieldName] = newElement;
+                    });
+                },
+                function (err) {
+                    UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
+                }
+            );
+        };
 
-    // Add new field into $scope.staging object
-    service.addFieldToStaging = function ($scope, fieldType) {
-      console.debug('addFieldToStaging' + fieldType);
-      this.addField();
-      var field = DataManipulationService.generateField(fieldType);
-      field.minItems = 0;
-      field.maxItems = 1;
+        // Add new field into $scope.staging object
+        service.addFieldToStaging = function ($scope, fieldType) {
+            console.debug('addFieldToStaging' + fieldType);
+            this.addField();
+            var field = DataManipulationService.generateField(fieldType);
+            field.minItems = 0;
+            field.maxItems = 1;
 
-      // If fieldtype can have multiple options, additional parameters on field object are necessary
-      var optionInputs = ["radio", "checkbox", "list"];
+            // If fieldtype can have multiple options, additional parameters on field object are necessary
+            var optionInputs = ["radio", "checkbox", "list"];
 
-      if (optionInputs.indexOf(fieldType) > -1) {
-        field._ui.options = [
-          {
-            "text": ""
-          }
-        ];
-      }
-      // empty staging object (only one field should be configurable at a time)
-      $scope.staging = {};
-      // put field into fields staging object
-      $scope.staging[field['@id']] = field;
-    };
+            if (optionInputs.indexOf(fieldType) > -1) {
+                //field._ui.options = [
+                //    {
+                //        "text": ""
+                //    }
+                //];
+                field._valueConstraints.literals = {};
+                field._valueConstraints.literals.options = [{"text": ""}];
+            }
+            // empty staging object (only one field should be configurable at a time)
+            $scope.staging = {};
+            // put field into fields staging object
+            $scope.staging[field['@id']] = field;
+        };
 
-    service.addFieldToForm = function (form, fieldType, divId, callback) {
+        service.addFieldToForm = function (form, fieldType, divId, callback) {
 
-      var field = DataManipulationService.generateField(fieldType);
-      DataManipulationService.setSelected(field);
+            var field = DataManipulationService.generateField(fieldType);
+            DataManipulationService.setSelected(field);
 
-      var optionInputs = ["radio", "checkbox", "list"];
-      if (optionInputs.indexOf(fieldType) > -1) {
-        field._ui.options = [
-          {
-            "text": ""
-          }
-        ];
-      }
-
-      // Converting title for irregular character handling
-      var fieldName = DataManipulationService.generateGUID(); //field['@id'];
-
-      // Adding corresponding property type to @context
-      form.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(fieldName);
-      form.properties["@context"].required.push(fieldName);
-
-      // Evaluate cardinality
-      DataManipulationService.cardinalizeField(field);
-
-      // Adding field to the element.properties object
-      form.properties[fieldName] = field;
-      form._ui.order = form._ui.order || [];
-      form._ui.order.push(fieldName);
-
-      DataManipulationService.addDomIdIfNotPresent(field, divId);
-      DataManipulationService.defaultTitle(field);
-      callback(field);
-
-      return field;
-    };
-
-    service.addElementToForm = function (form, elementId, domId, callback) {
-      AuthorizedBackendService.doCall(
-          TemplateElementService.getTemplateElement(elementId),
-          function (response) {
-            var clonedElement = response.data;
-            //clonedElement.minItems = 1;
-            //clonedElement.maxItems = 1;
-
-            var elProperties = DataManipulationService.getFieldProperties(clonedElement);
-            DataManipulationService.setSelected(clonedElement);
-            //elProperties._tmp = elProperties._tmp || {};
-            //elProperties._tmp.state = "creating";
+            var optionInputs = ["radio", "checkbox", "list"];
+            if (optionInputs.indexOf(fieldType) > -1) {
+                //field._ui.options = [
+                //    {
+                //        "text": ""
+                //    }
+                //];
+                field._valueConstraints.literals = {};
+                field._valueConstraints.literals.options = [{"text": ""}];
+            }
 
             // Converting title for irregular character handling
-            var elName = DataManipulationService.getFieldName(clonedElement._ui.title);
-            elName = DataManipulationService.getAcceptableKey(form.properties, elName);
+            var fieldName = DataManipulationService.generateGUID(); //field['@id'];
 
             // Adding corresponding property type to @context
-            form.properties["@context"].properties[elName] = DataManipulationService.generateFieldContextProperties(elName);
-            form.properties["@context"].required.push(elName);
+            form.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(fieldName);
+            form.properties["@context"].required.push(fieldName);
 
             // Evaluate cardinality
-            DataManipulationService.cardinalizeField(clonedElement);
+            DataManipulationService.cardinalizeField(field);
 
             // Adding field to the element.properties object
-            form.properties[elName] = clonedElement;
+            form.properties[fieldName] = field;
             form._ui.order = form._ui.order || [];
-            form._ui.order.push(elName);
+            form._ui.order.push(fieldName);
 
-            DataManipulationService.addDomIdIfNotPresent(clonedElement, domId);
-            DataManipulationService.createDomIds(clonedElement);
-            callback(clonedElement);
+            DataManipulationService.addDomIdIfNotPresent(field, divId);
+            DataManipulationService.defaultTitle(field);
+            callback(field);
 
-          },
-          function (err) {
-            UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
-          }
-      );
-    };
+            return field;
+        };
 
-    service.addFieldToElement = function (element, fieldType, divId, callback) {
-      var field = DataManipulationService.generateField(fieldType);
-      DataManipulationService.setSelected(field);
-      //field.properties._tmp = field.properties._tmp || {};
-      //field.properties._tmp.state = "creating";
+        service.addElementToForm = function (form, elementId, domId, callback) {
+            AuthorizedBackendService.doCall(
+                TemplateElementService.getTemplateElement(elementId),
+                function (response) {
+                    var clonedElement = response.data;
+                    //clonedElement.minItems = 1;
+                    //clonedElement.maxItems = 1;
 
-      var optionInputs = ["radio", "checkbox", "list"];
-      if (optionInputs.indexOf(fieldType) > -1) {
-        field._ui.options = [
-          {
-            "text": ""
-          }
-        ];
-      }
+                    var elProperties = DataManipulationService.getFieldProperties(clonedElement);
+                    DataManipulationService.setSelected(clonedElement);
+                    //elProperties._tmp = elProperties._tmp || {};
+                    //elProperties._tmp.state = "creating";
 
-      // Converting title for irregular character handling
-      var fieldName = DataManipulationService.generateGUID(); //field['@id'];
+                    // Converting title for irregular character handling
+                    var elName = DataManipulationService.getFieldName(clonedElement._ui.title);
+                    elName = DataManipulationService.getAcceptableKey(form.properties, elName);
 
-      // Adding corresponding property type to @context
-      element.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(fieldName);
-      element.properties["@context"].required.push(fieldName);
+                    // Adding corresponding property type to @context
+                    form.properties["@context"].properties[elName] = DataManipulationService.generateFieldContextProperties(elName);
+                    form.properties["@context"].required.push(elName);
 
-      // Evaluate cardinality
-      DataManipulationService.cardinalizeField(field);
+                    // Evaluate cardinality
+                    DataManipulationService.cardinalizeField(clonedElement);
 
-      // Adding field to the element.properties object
-      element.properties[fieldName] = field;
-      element._ui.order.push(fieldName);
+                    // Adding field to the element.properties object
+                    form.properties[elName] = clonedElement;
+                    form._ui.order = form._ui.order || [];
+                    form._ui.order.push(elName);
 
-      DataManipulationService.addDomIdIfNotPresent(field, divId);
-      DataManipulationService.defaultTitle(field);
-      callback(field);
+                    DataManipulationService.addDomIdIfNotPresent(clonedElement, domId);
+                    DataManipulationService.createDomIds(clonedElement);
+                    callback(clonedElement);
 
-      return field;
-    };
+                },
+                function (err) {
+                    UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
+                }
+            );
+        };
 
-    service.addElementToElement = function (element, elementId, domId, callback) {
-      AuthorizedBackendService.doCall(
-          TemplateElementService.getTemplateElement(elementId),
-          function (response) {
-            var el = response.data;
-            //el.minItems = 0;
-            //el.maxItems = 1;
+        service.addFieldToElement = function (element, fieldType, divId, callback) {
+            var field = DataManipulationService.generateField(fieldType);
+            DataManipulationService.setSelected(field);
+            //field.properties._tmp = field.properties._tmp || {};
+            //field.properties._tmp.state = "creating";
 
-            var elProperties = DataManipulationService.getFieldProperties(el);
-            DataManipulationService.setSelected(el);
-            //elProperties._tmp = elProperties._tmp || {};
-            //elProperties._tmp.state = "creating";
+            var optionInputs = ["radio", "checkbox", "list"];
+            if (optionInputs.indexOf(fieldType) > -1) {
+                //field._ui.options = [
+                //    {
+                //        "text": ""
+                //    }
+                //];
+                field._valueConstraints.literals = {};
+                field._valueConstraints.literals.defaultOption = [{"text": ""}];
+            }
 
-            var elName = DataManipulationService.getFieldName(el._ui.title);
-            elName = DataManipulationService.getAcceptableKey(element.properties, elName);
+            // Converting title for irregular character handling
+            var fieldName = DataManipulationService.generateGUID(); //field['@id'];
 
-            element.properties["@context"].properties[elName] = DataManipulationService.generateFieldContextProperties(elName);
-            element.properties["@context"].required.push(elName);
+            // Adding corresponding property type to @context
+            element.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(fieldName);
+            element.properties["@context"].required.push(fieldName);
 
             // Evaluate cardinality
-            DataManipulationService.cardinalizeField(el);
+            DataManipulationService.cardinalizeField(field);
 
             // Adding field to the element.properties object
-            element.properties[elName] = el;
-            element._ui.order.push(elName);
+            element.properties[fieldName] = field;
+            element._ui.order.push(fieldName);
 
-            DataManipulationService.addDomIdIfNotPresent(el, domId);
-            DataManipulationService.createDomIds(el);
-            callback(el);
-          },
-          function (err) {
-            UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
-          }
-      );
-    }
+            DataManipulationService.addDomIdIfNotPresent(field, divId);
+            DataManipulationService.defaultTitle(field);
+            callback(field);
 
-    // Add newly configured field to the the $scope.form or $scope.element
-    service.addFieldToScopeAndStaging = function ($scope, targetObject, field) {
-      // Setting return value from $scope.checkFieldConditions to array which will display error messages if any
-      $scope.stagingErrorMessages = ClientSideValidationService.checkFieldConditions(field);
-      $scope.stagingErrorMessages = jQuery.merge($scope.stagingErrorMessages,
-          ClientSideValidationService.checkFieldCardinalityOptions(field));
+            return field;
+        };
 
-      if ($scope.stagingErrorMessages.length == 0) {
-        // Converting title for irregular character handling
-        var fieldName = DataManipulationService.getFieldName($rootScope.schemaOf(field)._ui.title);
-        // Adding corresponding property type to @context
-        targetObject.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(
-            fieldName);
-        targetObject.properties["@context"].required.push(fieldName);
-        targetObject.required.push(fieldName);
+        service.addElementToElement = function (element, elementId, domId, callback) {
+            AuthorizedBackendService.doCall(
+                TemplateElementService.getTemplateElement(elementId),
+                function (response) {
+                    var el = response.data;
+                    //el.minItems = 0;
+                    //el.maxItems = 1;
 
-        // Evaluate cardinality
-        DataManipulationService.cardinalizeField(field);
+                    var elProperties = DataManipulationService.getFieldProperties(el);
+                    DataManipulationService.setSelected(el);
+                    //elProperties._tmp = elProperties._tmp || {};
+                    //elProperties._tmp.state = "creating";
 
-        // Adding field to the element.properties object
-        targetObject.properties[fieldName] = field;
+                    var elName = DataManipulationService.getFieldName(el._ui.title);
+                    elName = DataManipulationService.getAcceptableKey(element.properties, elName);
 
-        // Lastly, remove this field from the $scope.staging object
-        $scope.staging = {};
-        this.moveIntoPlace();
-      }
+                    element.properties["@context"].properties[elName] = DataManipulationService.generateFieldContextProperties(elName);
+                    element.properties["@context"].required.push(elName);
+
+                    // Evaluate cardinality
+                    DataManipulationService.cardinalizeField(el);
+
+                    // Adding field to the element.properties object
+                    element.properties[elName] = el;
+                    element._ui.order.push(elName);
+
+                    DataManipulationService.addDomIdIfNotPresent(el, domId);
+                    DataManipulationService.createDomIds(el);
+                    callback(el);
+                },
+                function (err) {
+                    UIMessageService.showBackendError('SERVER.ELEMENT.load.error', err);
+                }
+            );
+        }
+
+        // Add newly configured field to the the $scope.form or $scope.element
+        service.addFieldToScopeAndStaging = function ($scope, targetObject, field) {
+            // Setting return value from $scope.checkFieldConditions to array which will display error messages if any
+            $scope.stagingErrorMessages = ClientSideValidationService.checkFieldConditions(field);
+            $scope.stagingErrorMessages = jQuery.merge($scope.stagingErrorMessages,
+                ClientSideValidationService.checkFieldCardinalityOptions(field));
+
+            if ($scope.stagingErrorMessages.length == 0) {
+                // Converting title for irregular character handling
+                var fieldName = DataManipulationService.getFieldName($rootScope.schemaOf(field)._ui.title);
+                // Adding corresponding property type to @context
+                targetObject.properties["@context"].properties[fieldName] = DataManipulationService.generateFieldContextProperties(
+                    fieldName);
+                targetObject.properties["@context"].required.push(fieldName);
+                targetObject.required.push(fieldName);
+
+                // Evaluate cardinality
+                DataManipulationService.cardinalizeField(field);
+
+                // Adding field to the element.properties object
+                targetObject.properties[fieldName] = field;
+
+                // Lastly, remove this field from the $scope.staging object
+                $scope.staging = {};
+                this.moveIntoPlace();
+            }
+        };
+
+        service.setModelObject = function (modelObject) {
+            $rootScope.modelObject = modelObject;
+        };
+
+        service.setDataObject = function (dataObject) {
+            $rootScope.dataObject = dataObject;
+        };
+
+        return service;
     };
-
-    service.setModelObject = function (modelObject) {
-      $rootScope.modelObject = modelObject;
-    };
-
-    service.setDataObject = function (dataObject) {
-      $rootScope.dataObject = dataObject;
-    };
-
-    return service;
-  };
 
 });

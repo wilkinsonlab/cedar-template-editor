@@ -39,15 +39,15 @@ define([
             if (key == "_value") {
               if (angular.isArray(model)) {
                 if ($rootScope.schemaOf(settings)._ui.inputType == "list") {
-                  if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                    el[key] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                  if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                    el[key] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                   } else {
                     model.splice(0, model.length);
                   }
                 } else {
                   for (var i = 0; i < model.length; i++) {
-                    if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                      model[i]["_value"] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                    if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                      model[i]["_value"] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                     } else {
                       if (typeof(model[i]["_value"]) == "string") {
                         model[i]["_value"] = "";
@@ -60,8 +60,8 @@ define([
                   }
                 }
               } else {
-                if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                  el[key] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                  el[key] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                 } else {
                   if (typeof(model) == "string") {
                     el[key] = "";
@@ -81,15 +81,15 @@ define([
                   if (k == "_value") {
                     if (angular.isArray(v)) {
                       if ($rootScope.schemaOf(settings)._ui.inputType == "list") {
-                        if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                          model[k] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                        if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                          model[k] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                         } else {
                           v.splice(0, v.length);
                         }
                       } else {
                         for (var i = 0; i < v.length; i++) {
-                          if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                            v[i]["_value"] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                          if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                            v[i]["_value"] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                           } else {
                             if (typeof(v[i]["_value"]) == "string") {
                               v[i]["_value"] = "";
@@ -102,8 +102,8 @@ define([
                         }
                       }
                     } else {
-                      if ($rootScope.schemaOf(settings)._ui.defaultOption) {
-                        model[k] = angular.copy($rootScope.schemaOf(settings)._ui.defaultOption);
+                      if ($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption) {
+                        model[k] = angular.copy($rootScope.schemaOf(settings)._valueConstraints.literals.defaultOption);
                       } else {
                         if (typeof(v) == "string") {
                           model[k] = "";

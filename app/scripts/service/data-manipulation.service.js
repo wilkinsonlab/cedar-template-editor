@@ -237,7 +237,7 @@ define([
             var emptyOption = {
                 "text": $translate.instant("VALIDATION.noNameField")
             };
-            field._ui.options.push(emptyOption);
+            field._valueConstraints.literals.options.push(emptyOption);
         };
 
         service.generateCardinalities = function (min, max, addUnlimited) {
@@ -671,17 +671,17 @@ define([
             if (schema._ui.inputType == "radio" || schema._ui.inputType == "checkbox" || schema._ui.inputType == "list") {
 
                 // make sure we have the minimum number of options
-                while (schema._ui.options.length < MIN_OPTIONS) {
+                while (schema._valueConstraints.literals.options.length < MIN_OPTIONS) {
                     var emptyOption = {
                         "text": name || ""
                     };
-                    schema._ui.options.push(emptyOption);
+                    schema._valueConstraints.literals.options.push(emptyOption);
                 }
 
                 // and they all have text fields filled in
-                for (var i = 0; i < schema._ui.options.length; i++) {
-                    if (schema._ui.options[i].text.length == 0) {
-                        schema._ui.options[i].text = $translate.instant("VALIDATION.noNameField");
+                for (var i = 0; i < schema._valueConstraints.literals.options.length; i++) {
+                    if (schema._valueConstraints.literals.options[i].text.length == 0) {
+                        schema._valueConstraints.literals.options[i].text = $translate.instant("VALIDATION.noNameField");
                     }
                 }
             }
@@ -702,7 +702,7 @@ define([
             // If field is within multiple choice field types
             if (extraConditionInputs.indexOf(schema._ui.inputType) !== -1) {
                 var optionMessage = '"Enter Option" input cannot be left empty.';
-                angular.forEach(schema._ui.options, function (value, index) {
+                angular.forEach(schema._valueConstraints.literals.options, function (value, index) {
                     // If any 'option' title text is left empty, create error message
                     if (!value.text.length && unmetConditions.indexOf(optionMessage) == -1) {
                         unmetConditions.push(optionMessage);
@@ -710,7 +710,7 @@ define([
                 });
             }
             // If field type is 'radio' or 'pick from a list' there must be more than one option created
-            if ((schema._ui.inputType == 'radio' || schema._ui.inputType == 'list') && schema._ui.options && (schema._ui.options.length <= 1)) {
+            if ((schema._ui.inputType == 'radio' || schema._ui.inputType == 'list') && schema._valueConstraints.literals.options && (schema._valueConstraints.literals.options.length <= 1)) {
                 unmetConditions.push('Multiple choice fields must have at least two possible options');
             }
             // Return array of error messages

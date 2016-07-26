@@ -1,29 +1,28 @@
-
-<input ng-if="!isEditState()" type="checkbox"
-       ng-click="console('clicked');$event.stopPropagation();"
+{{$root.schemaOf(field)}} {{m}} <br/><br/>
+<input ng-if="!isEditState()" type="checkbox" ng-init="initDefaults(m)"
+       ng-click="$event.stopPropagation();"
        id="checkbox-{{uuid}}-{{pIndex}}-{{cIndex}}"
        ng-model="m._value[value.text]"
-       ng-checked="m._value[value.text]"
        ng-disabled="!$root.isRuntime()"/>
 
 
 <input ng-if="isEditState()" type="checkbox"
-       ng-click="console('clicked');$event.stopPropagation();"
+       ng-click="$event.stopPropagation();"
        id="checkbox-{{uuid}}-{{pIndex}}-{{cIndex}}"
-       ng-model="$root.schemaOf(field)._ui.defaultOption[value.text]"
+       ng-model="$root.schemaOf(field)._valueConstraints.literals.defaultOption[value.text]"
        />
 
 <label style="width:100%" ng-click=" $event.stopPropagation();" for="checkbox-{{uuid}}-{{pIndex}}-{{cIndex}}">
 
        <div  class="form-group floating-label-wrapper" style="transform: translate(0, -15px);">
               <div ng-if="!isEditState()" style="transform: translate(0, 15px);">
-                     {{$root.schemaOf(field)._ui.options[index]['text']}}
+                     {{$root.schemaOf(field)._valueConstraints.literals.options[index]['text']}}
               </div>
               <div ng-if="isEditState()">
 
-              <input  type="text" class="form-control" style="border:0px solid white;border-bottom:1px solid #ddd; width:100%"
+              <input  type="text" class="form-control field-name-definition"  style="border:0px solid white;border-bottom:1px solid #ddd; width:100%"
                      id="placeholder-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}" placeholder="Option"
-                     aria-label="Option" ng-model="$root.schemaOf(field)._ui.options[cIndex]['text']" with-floating-label>
+                     aria-label="Option" ng-model="$root.schemaOf(field)._valueConstraints.literals.options[cIndex]['text']" with-floating-label>
 
 
               <a  ng-click="removeOption(cIndex);"><i style="font-size:20px;position:absolute;right:0;top:10px" class="fa fa-times"></i></a>

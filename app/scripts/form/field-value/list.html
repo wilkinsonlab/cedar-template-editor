@@ -1,4 +1,5 @@
 <!-- single select -->
+{{$root.schemaOf(field)}} {{m}} <br/><br/>
 <div ng-if="$root.schemaOf(field)._ui.selectionType == 'single'"
      class="form-group form-group-narrow validation-pattern"
      ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}">
@@ -10,12 +11,12 @@
             title="{{'CREATOR.pleaseSelect' | translate}}"
             ng-model="m._value"
             ng-disabled="!$root.isRuntime() || preview"
-            defaults="$root.schemaOf(field)._ui.defaultOption"
+            defaults="$root.schemaOf(field)._valueConstraints.literals.defaultOption"
             select-picker="">
         <option value="">Please select</option>
-        <option ng-repeat="(index, value) in $root.schemaOf(field)._ui.options"
-                value="{{$root.schemaOf(field)._ui.options[index]['text']}}">
-            {{$root.schemaOf(field)._ui.options[index]['text']}}
+        <option ng-repeat="(index, value) in $root.schemaOf(field)._valueConstraints.literals.options"
+                value="{{$root.schemaOf(field)._valueConstraints.literals.options[index]['text']}}">
+            {{$root.schemaOf(field)._valueConstraints.literals.options[index]['text']}}
         </option>
     </select>
 </div><!-- /.form-group form-group-narrow -->
@@ -30,12 +31,12 @@
             title="{{'CREATOR.pleaseSelect' | translate}}"
             ng-model="m._value"
             ng-disabled="!$root.isRuntime() || preview"
-            defaults="$root.schemaOf(field)._ui.defaultOption"
+            defaults="$root.schemaOf(field)._valueConstraints.literals.defaultOption"
             select-picker="">
         <option value="">Please select </option>
-        <option ng-repeat="(index, value) in $root.schemaOf(field)._ui.options"
-                value="{{$root.schemaOf(field)._ui.options[index]['text']}}">
-            {{$root.schemaOf(field)._ui.options[index]['text']}}
+        <option ng-repeat="(index, value) in $root.schemaOf(field)._valueConstraints.literals.options"
+                value="{{$root.schemaOf(field)._valueConstraints.literals.options[index]['text']}}">
+            {{$root.schemaOf(field)._valueConstraints.literals.options[index]['text']}}
         </option>
     </select>
 </div><!-- /.form-group form-group-narrow -->
