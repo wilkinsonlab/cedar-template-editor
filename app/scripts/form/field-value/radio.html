@@ -3,8 +3,8 @@
        id="radio-{{uuid}}-{{pIndex}}-{{cIndex}}"
        name="radio-{{uuid}}-{{pIndex}}"
        ng-model="m._value"
-       value="{{$root.schemaOf(field)._ui.options[cIndex]['text']}}"
-       ng-change="refreshOption(0);"/>
+
+       ng-value="$root.schemaOf(field)._ui.options[cIndex]['text']"/>
 
 <label style="width:100%" ng-click="$event.stopPropagation();" for="radio-{{uuid}}-{{pIndex}}-{{cIndex}}">
 
