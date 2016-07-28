@@ -1,0 +1,63 @@
+<div ng-if="isEditState()">
+  <div id="youtube-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}" class="input-type-container video">
+
+
+    <div class="form-group floating-label-wrapper">
+      <input type="text" class="form-control"
+          id="youtube-name-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}"
+          placeholder="Video Name (Optional)" aria-label="Video Name (Optional)"
+          ng-model="$root.schemaOf(field)._ui.title" with-floating-label>
+    </div>
+    <!-- /.form-group -->
+    <div class="form-group floating-label-wrapper">
+      <input type="text" class="form-control"
+          id="youtube-description-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}"
+          placeholder="Video Description (Optional)" aria-label="Video Description (Optional)"
+          ng-model="$root.schemaOf(field)._ui.description" with-floating-label>
+    </div>
+    <!-- /.form-group -->
+    <div class="form-group floating-label-wrapper">
+      <input type="text" class="form-control" id="youtube-src-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}"
+          placeholder="YouTube Video Identifier" aria-label="YouTube Video Identifier"
+          ng-model="$root.propertiesOf(field)._content" with-floating-label>
+    </div>
+    <!-- /.form-group -->
+    <div class="form-group floating-label-wrapper">
+      <input type="number" class="form-control"
+          id="youtube-width-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}"
+          placeholder="Video Width (Optional)" aria-label="Video Width (Optional)"
+          ng-model="$root.propertiesOf(field)._size.width" with-floating-label>
+    </div>
+    <!-- /.form-group -->
+    <div class="form-group floating-label-wrapper">
+      <input type="number" class="form-control"
+          id="youtube-height-{{field['@id'].substring(field['@id'].lastIndexOf('/')+1)}}"
+          placeholder="Video Height (Optional)" aria-label="Video Height (Optional)"
+          ng-model="$root.propertiesOf(field)._size.height" with-floating-label>
+    </div>
+    <!-- /.form-group -->
+  </div><!-- /.input-type-container -->
+</div>
+
+<div ng-if="!isEditState()">
+<div ng-if="!$root.isRuntime()" style="padding-top: 10px;">
+  <!-- let's put the video into a figure so we can use the figcaption for the title -->
+  <figure>
+    <!-- fit-vids directive automatically resizes the video to full width -->
+    <div fit-vids ng-bind-html="getYouTubeEmbedFrame(field)"></div>
+    <figcaption><label>{{$root.schemaOf(field)._ui.title}}</label></figcaption>
+  </figure>
+</div>
+
+
+<div ng-if="$root.isRuntime()">
+  <!-- let's put the video into a figure so we can use the figcaption for the title -->
+  <figure>
+    <!-- fit-vids directive automatically resizes the video to full width -->
+    <div fit-vids ng-bind-html="getYouTubeEmbedFrame(field)"></div>
+    <figcaption><label>{{$root.schemaOf(field)._ui.title}}</label></figcaption>
+  </figure>
+</div>
+</div>
+
+<div class="clearfix all"></div>

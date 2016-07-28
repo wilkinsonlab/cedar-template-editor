@@ -235,7 +235,7 @@ define([
         // add an option to this field
         service.addOption = function (field) {
             var emptyOption = {
-                "text": $translate.instant("VALIDATION.noNameField")
+                "text": ""
             };
             field._ui.options.push(emptyOption);
         };
@@ -664,7 +664,7 @@ define([
 
             // default description
             if (!schema._ui.description) {
-                schema._ui.description = $translate.instant("VALIDATION.noDescriptionField");
+                schema._ui.description = "";
             }
 
             // if this is radio, checkbox or list,  add at least two options and set default values

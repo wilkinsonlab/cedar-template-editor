@@ -22,7 +22,7 @@
     "iconClass": "cedar-svg-radio",
     "label": "Radio",
     "allowedInElement": true,
-    "hasControlledTerms": true,
+    "hasControlledTerms": false,
     "staticField": false
   },
   {
@@ -30,7 +30,7 @@
     "iconClass": "cedar-svg-checkbox",
     "label": "Checkbox",
     "allowedInElement": true,
-    "hasControlledTerms": true,
+    "hasControlledTerms": false,
     "staticField": false
   },
   {
@@ -64,7 +64,7 @@
     "allowedInElement": true,
     "primaryField": true,
     "label": "List",
-    "hasControlledTerms": true,
+    "hasControlledTerms": false,
     "staticField": false
   },
   {
@@ -89,7 +89,7 @@
     "iconClass": "cedar-svg-text",
     "allowedInElement": true,
     "label": "Regex Text",
-    "hasControlledTerms": true,
+    "hasControlledTerms": false,
     "staticField": false
   },
   {
@@ -97,7 +97,7 @@
     "iconClass": "cedar-svg-text",
     "allowedInElement": true,
     "label": "URL",
-    "hasControlledTerms": true,
+    "hasControlledTerms": false,
     "staticField": false
   },
   {

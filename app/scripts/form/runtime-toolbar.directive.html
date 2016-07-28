@@ -3,7 +3,7 @@
     <h4>
         <button type="button" class="help"
                 style="background:transparent;border:0;outline:none"
-                ng-class="{'invisible': $root.schemaOf(fieldOrElement)._ui.description.length == 0}"
+                ng-show="$root.schemaOf(fieldOrElement)._ui.description.length != 0"
                 tooltip="{{$root.schemaOf(fieldOrElement)._ui.description}}"
                 tooltip-trigger
                 tooltip-animation="true"
@@ -14,6 +14,7 @@
 
         <button type="button" class="add noOutline"
                 style="background:transparent;border:0;outline:none"
+                ng-show="!$root.isElement(fieldOrElement)"
                 tooltip="add"
                 ng-show="$root.isArray($parent.model)"
                 tooltip-trigger

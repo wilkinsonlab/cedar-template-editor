@@ -44,6 +44,21 @@ define([
                     return false;
                 };
 
+              $scope.isStatic = function () {
+
+                var fieldTypes = FieldTypeService.getFieldTypes();
+                var inputType = 'element';
+                if (DataManipulationService.getFieldSchema($scope.fieldOrElement)._ui.inputType) {
+                  inputType = DataManipulationService.getFieldSchema($scope.fieldOrElement)._ui.inputType;
+                  for (var i = 0; i < fieldTypes.length; i++) {
+                    if (fieldTypes[i].cedarType === inputType) {
+                      return fieldTypes[i].staticField;
+                    }
+                  }
+                }
+                return false;
+              };
+
                 $scope.showModal = function (id) {
                     jQuery("#" + id).modal('show');
                 };
@@ -262,6 +277,9 @@ define([
                     TrackingService.clickTrack(action);
                 };
 
+              $scope.isElement = function () {
+                return $rootScope.isElement($scope.fieldOrElement);
+              }
 
             },
             replace: true,
