@@ -13931,6 +13931,26 @@ table.apiKey td {
   /* Internet Explorer 10-11 */
   color: #bebebe;
 }
+.edittime-toolbar-container {
+  padding: 10px;
+  height: 50px;
+}
+.edittime-toolbar-container .edittime-toolbar {
+  float: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 @font-face {
   font-family: "project-cedar";
   src: url("../media/fonts/project-cedar.eot");

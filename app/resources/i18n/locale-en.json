@@ -302,17 +302,17 @@
     "addElementToStagingMsg": "Add an existing element or create a new item.",
     "enterFieldTitle": "Enter Field Title",
     "enterElementTitle": "Enter Element Title",
-    "enterFieldDescription": "Enter Help Text",
-    "enterElementDescription": "Enter Help Text",
-    "enterEmail": "Enter an email address",
+    "enterFieldDescription": "Enter help T\text",
+    "enterElementDescription": "Enter help text",
+    "enterEmail": "Enter email address",
     "enterDate": "Please select date",
     "pleaseSelect": "Please select",
     "enterPhoneNumber": "Enter phone number",
     "enterNumber": "Enter number",
     "enterParagraph": "Enter paragraph text",
-    "enterTextField": "Enter text field",
-    "enterURLField": "Enter URL field",
-    "enterRegexField": "Enter regex field"
+    "enterTextField": "Enter text",
+    "enterURLField": "Enter URL",
+    "enterRegexField": "Enter regex text"
   },
   "AUTHORIZATION-ERROR": {
     "suggestedAction": {

@@ -14,9 +14,8 @@
 
         <button type="button" class="add noOutline"
                 style="background:transparent;border:0;outline:none"
-                ng-show="!$root.isElement(fieldOrElement)"
                 tooltip="add"
-                ng-show="$root.isArray($parent.model)"
+                ng-show="$root.isArray($parent.model) && !$root.isElement(fieldOrElement)"
                 tooltip-trigger
                 tooltip-animation="true"
                 tooltip-placement="top"
