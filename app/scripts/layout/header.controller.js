@@ -10,12 +10,36 @@ define([
     '$rootScope',
     '$location',
     '$window',
-    'UrlService'
+    '$timeout',
+    'UrlService',
+    'UIMessageService'
   ];
 
-  function HeaderController($rootScope, $location, $window, UrlService) {
+  function HeaderController($rootScope, $location, $window, $timeout, UrlService, UIMessageService) {
 
     var vm = this;
+
+    vm.confirmBack = function () {
+
+      if (!$rootScope.isDirty()) {
+
+        vm.goToDashboardOrBack();
+
+      } else {
+
+        UIMessageService.confirmedExecution(
+            function () {
+              $timeout(function () {
+                vm.goToDashboardOrBack();
+              });
+
+            },
+            'GENERIC.AreYouSure',
+            'DASHBOARD.back',
+            'GENERIC.YesGoBack'
+        );
+      }
+    };
 
     vm.goToDashboardOrBack = function () {
       vm.searchTerm = null;
@@ -34,7 +58,7 @@ define([
       var url = $rootScope.util.buildUrl(baseUrl, queryParams);
       $location.url(url);
       $window.scrollTo(0, 0);
-      
+
     };
 
     vm.search = function (searchTerm) {

@@ -57,6 +57,7 @@ define([
                   //closeAllElements();
                   $rootScope.keyOfRootElement = $scope.form["@id"];
                   $rootScope.rootElement = $scope.form;
+                  $rootScope.setDirty(false);
 
                 },
                 function (err) {
@@ -69,6 +70,7 @@ define([
             HeaderService.dataContainer.currentObjectScope = $scope.form;
             $rootScope.keyOfRootElement = $scope.form["@id"];
             $rootScope.rootElement = $scope.form;
+            $rootScope.setDirty(false);
           }
         };
         getTemplate();
@@ -99,6 +101,7 @@ define([
             StagingService.addFieldToForm($scope.form, fieldType, domId, function (el) {
               // now we are sure that the element was successfully added
               $rootScope.scrollToDomId(domId);
+              $rootScope.setDirty(true);
             });
           }
         };
@@ -117,6 +120,7 @@ define([
               // now we are sure that the element was successfully added, scroll to it and hide its nested contents
               $rootScope.scrollToDomId(domId);
               //$rootScope.toggleElement(domId);
+              $rootScope.setDirty(true);
 
             });
             $rootScope.$broadcast("form:update", element);
@@ -129,7 +133,6 @@ define([
           return ($scope.showCardinality && item == "cardinality");
         };
         $scope.toggleTab = function (item) {
-          console.log('toggleTab ' + $scope.showCardinality);
           $scope.showCardinality = !$scope.showCardinality;
         };
 
@@ -144,6 +147,7 @@ define([
                 $timeout(function () {
                   $scope.doReset();
                   StagingService.resetPage();
+                  $rootScope.setDirty(false);
                 });
               },
               'GENERIC.AreYouSure',
@@ -211,6 +215,7 @@ define([
                     // confirm message
                     UIMessageService.flashSuccess('SERVER.TEMPLATE.create.success', {"title": response.data._ui.title},
                         'GENERIC.Created');
+                    $rootScope.setDirty(false);
                     // Reload page with template id
                     var newId = response.data['@id'];
                     $location.path(UrlService.getTemplateEdit(newId));
@@ -230,6 +235,7 @@ define([
                     $scope.form = response.data;
                     UIMessageService.flashSuccess('SERVER.TEMPLATE.update.success',
                         {"title": response.data._ui.title}, 'GENERIC.Updated');
+                    $rootScope.setDirty(false);
                   },
                   function (err) {
                     UIMessageService.showBackendError('SERVER.TEMPLATE.update.error', err);
@@ -309,6 +315,7 @@ define([
         $scope.cancelTemplate = function () {
           var params = $location.search();
           $location.url(UrlService.getFolderContents(params.folderId));
+          $rootScope.setDirty(false);
         };
 
 
