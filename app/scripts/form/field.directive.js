@@ -11,10 +11,10 @@ define([
 
   fieldDirective.$inject = ["$rootScope", "$sce", "$document", "$translate", "SpreadsheetService",
                             "DataManipulationService", "FieldTypeService", "controlledTermDataService",
-                            "StringUtilsService"];
+                            "StringUtilsService","TrackingService"];
 
   function fieldDirective($rootScope, $sce, $document, $translate, SpreadsheetService, DataManipulationService,
-                          FieldTypeService, controlledTermDataService, StringUtilsService) {
+                          FieldTypeService, controlledTermDataService, StringUtilsService, TrackingService) {
 
     var linker = function ($scope, $element, attrs) {
 
@@ -915,6 +915,11 @@ define([
       $scope.validationCheck = function () {
         console.log('validationCheck');
       }
+
+      $scope.clickTrack = function (action) {
+        console.log('clicktrack' + action);
+        TrackingService.clickTrack(action, $rootScope.schemaOf(field)['@id'] || "");
+      };
 
 
     };
