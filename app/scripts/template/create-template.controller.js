@@ -79,10 +79,11 @@ define([
           $scope.invalidElementStates = {};
           $scope.$broadcast('saveForm');
 
-          TrackingService.eventTrack('saveForm', {category: 'creating', label: 'saveForm'});
-          TrackingService.pageTrack();
+          //TrackingService.eventTrack('saveForm', {category: 'creating', label: 'saveForm'});
+          //TrackingService.pageTrack();
 
-        }
+
+        };
 
         var dontHaveCreatingFieldOrElement = function () {
           return $rootScope.isEmpty($scope.invalidFieldStates) && $rootScope.isEmpty($scope.invalidElementStates);
@@ -206,11 +207,14 @@ define([
             // create a copy of the form and strip out the _tmp fields before saving it
             //var copiedForm = $scope.stripTmpFields();
 
+
+
             // Save template
             if ($routeParams.id == undefined) {
               var queryParams = $location.search();
               $scope.form['parentId'] = queryParams.folderId;
               DataManipulationService.stripTmps($scope.form);
+              TrackingService.eventTrack('saveTemplate', {action: 'creating', label: 'saveForm'});
               AuthorizedBackendService.doCall(
                   TemplateService.saveTemplate(queryParams.folderId, $scope.form),
                   function (response) {
@@ -232,6 +236,7 @@ define([
             else {
               var id = $scope.form['@id'];
               DataManipulationService.stripTmps($scope.form);
+              TrackingService.eventTrack('saveTemplate', {action: 'updating', label: 'saveForm'});
               //--//delete $scope.form['@id'];
               AuthorizedBackendService.doCall(
                   TemplateService.updateTemplate(id, $scope.form),
