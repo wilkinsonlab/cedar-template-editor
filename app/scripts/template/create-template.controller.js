@@ -56,6 +56,7 @@ define([
                   // stick a domId on fields and elements
                   DataManipulationService.createDomIds($scope.form);
                   //closeAllElements();
+                  console.log($scope.form);
                   $rootScope.keyOfRootElement = $scope.form["@id"];
                   $rootScope.rootElement = $scope.form;
 
@@ -185,17 +186,9 @@ define([
 
         // Stores the template into the database
         $scope.doSaveTemplate = function () {
-          // First check to make sure Template Name, Template Description are not blank
+
           $scope.templateErrorMessages = [];
           $scope.templateSuccessMessages = [];
-          //// If Template Name is blank, produce error message
-          //if (!$scope.form._ui.title.length) {
-          //  $scope.templateErrorMessages.push($translate.instant("VALIDATION.templateNameEmpty"));
-          //}
-          //// If Template Description is blank, produce error message
-          //if (!$scope.form._ui.description.length) {
-          //  $scope.templateErrorMessages.push($translate.instant("VALIDATION.templateDescriptionEmpty"));
-          //}
 
           // If there are no Template level error messages
           if ($scope.templateErrorMessages.length == 0) {
@@ -203,8 +196,6 @@ define([
             DataManipulationService.removeUnnecessaryMaxItems($scope.form.properties);
             DataManipulationService.defaultTitleAndDescription($scope.form._ui);
 
-            // create a copy of the form and strip out the _tmp fields before saving it
-            //var copiedForm = $scope.stripTmpFields();
 
             // Save template
             if ($routeParams.id == undefined) {
@@ -309,6 +300,7 @@ define([
 
         // create a copy of the form with the _tmp fields stripped out
         $scope.stripTmpFields = function () {
+          console.log('stripTmpFields');
           var copiedForm = jQuery.extend(true, {}, $scope.form);
           if (copiedForm) {
             DataManipulationService.stripTmps(copiedForm);

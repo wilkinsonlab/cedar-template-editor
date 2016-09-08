@@ -81,6 +81,7 @@ define([
 
       // When form submit event is fired, check field for simple validation
       $scope.$on('submitForm', function (event) {
+        console.log('submitForm');console.log($scope.field);
 
         // If field is required and is empty, emit failed emptyRequiredField event
         if ($rootScope.schemaOf($scope.field)._valueConstraints && $rootScope.schemaOf($scope.field)._valueConstraints.requiredValue) {
@@ -176,6 +177,7 @@ define([
 
         // does the field have invalid data?
         var allFieldsAreValid = DataManipulationService.isInvalidPattern($scope.field);
+        console.log('allFieldsAreValid' + allFieldsAreValid);console.log($scope.field);console.log($scope.field);
         if ($rootScope.hasValueConstraint($rootScope.schemaOf($scope.field)._valueConstraints)) {
 
           if (angular.isArray($scope.model)) {

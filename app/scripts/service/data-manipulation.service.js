@@ -417,8 +417,13 @@ define([
 
     // look to see if this node has been identified by angular as an invalid pattern
     service.isInvalidPattern =  function(node)  {
-      var target = jQuery('#' + node._tmp.domId + ' .ng-invalid-pattern');
-      return (target.length == 0);
+      console.log('isInvalidPattern');console.log(node);
+      var target;
+      if (node.hasOwnProperty('_tmp')) {
+        target = jQuery('#' + node._tmp.domId + ' .ng-invalid-pattern');
+      }
+
+      return (target && target.length == 0);
     };
 
 
@@ -438,6 +443,7 @@ define([
      * @param node
      */
     service.getDomId = function (node) {
+      console.log('getDomId');console.log(node);
 
       var domId = null;
 
