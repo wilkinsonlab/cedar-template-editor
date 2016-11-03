@@ -17,7 +17,9 @@
            aria-label="{{$root.schemaOf(field)._ui.description}}"
            ng-model="name"
            ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
-           ng-blur="setFieldsForName(name);"/>
+           ng-blur="setFieldsForName(name);"
+           ng-change="getNamesFromPubChem(name,20);"
+           typeahead="name for name in names | filter:$viewValue"/>
 
     <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
 

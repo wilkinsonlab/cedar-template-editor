@@ -1089,6 +1089,23 @@ define([
         return deferred.promise;
       };
 
+      // Get an array of names from PubChem that match the given search string
+      $scope.getNamesFromPubChem = function (search, limit) {
+        var deferred = $q.defer();
+        console.log("Getting names from PubChem for search string: " + search);
+        var url = 'https://pubchem.ncbi.nlm.nih.gov/pcautocp/pcautocp.cgi?dict=pc_compoundnames&q=' + search + '&n=' + limit;
+        $http.get(url)
+          .success(function(data, status, headers, config) {
+            $scope.names = data.autocp_array;
+            console.log("Received names list: " + $scope.names);
+            deferred.resolve(data);
+          })
+          .error(function (data, status, headers, config) {
+            deferred.reject(status);
+          });
+        return deferred.promise;
+      };
+
       $scope.setFieldsForName = function (name) {
         $scope.setCidForName(name);
         $scope.setSmilesForName(name);
