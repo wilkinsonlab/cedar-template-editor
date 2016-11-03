@@ -45,6 +45,9 @@
       },
       "youtube": {
         "NAME": "YouTube"
+      },
+      "lincs-small-molecule": {
+        "NAME" : "LINCS Small Molecule"
       }
     }
   },

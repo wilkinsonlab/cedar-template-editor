@@ -120,5 +120,14 @@
     "hasControlledTerms": false,
     "staticField": true,
     "allowsMultiple": false
+  },
+  {
+    "cedarType": "lincs-small-molecule",
+    "iconClass": "cedar-svg-lincs-small-molecule",
+    "allowedInElement": true,
+    "label": "LINCS Small Molecule Validating Field",
+    "hasControlledTerms": false,
+    "staticField": false,
+    "allowsMultiple": false
   }
 ]

@@ -1,0 +1,75 @@
+<div class="fields">
+
+  <div ng-init="fieldTitle='&nbsp;LINCS Small Molecule';fieldIconClass='cedar-svg-lincs-small-molecule';"
+      ng-include="'scripts/form/partials/field-header.partial.html'"></div>
+
+  <div>
+    <p>LINCS small molecule</p>
+  </div>
+
+  <!-- Name-->
+  <div ng-if="!$root.isArray(model)" class="form-group floating-label-wrapper">
+    <input type="text"
+           id="{{getId(0)}}"
+           class="form-control"
+           ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
+           placeholder="Name"
+           aria-label="{{$root.schemaOf(field)._ui.description}}"
+           ng-model="name"
+           ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
+           ng-blur="setFieldsForName(name);"/>
+
+    <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
+
+    <div class="input-indicator-icons ng-valid ng-scope">
+      <i class="cedar-svg-help-circle" data-container="body" data-toggle="popover" data-placement="left" data-content="Enter the small molecule name"></i>
+      <i class="cedar-svg-check-circle"></i>
+      <i class="cedar-svg-warning"></i>
+    </div>
+  </div>
+
+  <!-- CID -->
+  <div ng-if="!$root.isArray(model)" class="form-group floating-label-wrapper">
+    <input type="text"
+           id="{{getId(1)}}"
+           class="form-control"
+           ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
+           placeholder="CID"
+           aria-label="{{$root.schemaOf(field)._ui.description}}"
+           ng-model="cid"
+           ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
+           ng-change=""
+           ng-blur="setFieldsForCid(cid);"/>
+
+    <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
+
+    <div class="input-indicator-icons ng-valid ng-scope">
+      <i class="cedar-svg-help-circle" data-container="body" data-toggle="popover" data-placement="left" data-content="Enter the small molecule CID"></i>
+      <i class="cedar-svg-check-circle"></i>
+      <i class="cedar-svg-warning"></i>
+    </div>
+  </div>
+
+  <!-- SMILES -->
+  <div ng-if="!$root.isArray(model)" class="form-group floating-label-wrapper">
+    <input type="text"
+           id="{{getId(2)}}"
+           class="form-control"
+           ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
+           placeholder="SMILES"
+           aria-label="{{$root.schemaOf(field)._ui.description}}"
+           ng-model="smiles"
+           ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
+           ng-blur="setFieldsForSmiles(smiles);"/>
+
+    <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
+
+    <div class="input-indicator-icons ng-valid ng-scope">
+      <i class="cedar-svg-help-circle" data-container="body" data-toggle="popover" data-placement="left" data-content="Enter the small molecule SMILES string"></i>
+      <i class="cedar-svg-check-circle"></i>
+      <i class="cedar-svg-warning"></i>
+    </div>
+  </div>
+
+  <div class="clearfix all"></div>
+</div>
