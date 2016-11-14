@@ -365,6 +365,8 @@ define([
 
 
                     }
+                    //jQuery.scrollto('biosample-validation-errors');
+
                   } else {
 
                     $scope.$emit('validationError',

@@ -9260,6 +9260,7 @@ button {
   font-size: 18px;
   margin: 0 0 0 10px;
   font-weight: 200;
+  font-size: 30px;
 }
 .navbar .navbar-back .document-title {
   color: #ffffff;
@@ -10698,6 +10699,7 @@ body.search-browse-modal a.navbar-brand {
   margin-bottom: 10px;
   text-align: left;
   display: inline-block;
+  font-size: 20px;
 }
 .template-body .right-body .element-group .element-name-label i {
   padding-right: 10px;
@@ -13616,6 +13618,9 @@ p.instructions {
 }
 .ui-select-choices .controlledTerm {
   color: #325364;
+}
+.ui-select-choices .ui-select-choices-row {
+  font-size: 20px;
 }
 .ui-select-container.open ~ .floating-label,
 .autocomplete-label-wrapper.has-selected .ui-select-container ~ .floating-label {
