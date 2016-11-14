@@ -8,11 +8,11 @@ define([
 
   // TODO: refactor to cedarFormDirective <cedar-form-directive>
 
-  formDirective.$inject = ['$rootScope', '$document', '$timeout', '$http', 'DataManipulationService',
+  formDirective.$inject = ['$rootScope', '$document', '$timeout', '$window', '$http', 'DataManipulationService',
                            'FieldTypeService', 'DataUtilService', 'BiosampleService', 'AuthorizedBackendService',
                            'UIMessageService', 'UrlService'];
 
-  function formDirective($rootScope, $document, $timeout, $http, DataManipulationService, FieldTypeService,
+  function formDirective($rootScope, $document, $timeout, $window, $http, DataManipulationService, FieldTypeService,
                          DataUtilService, BiosampleService, AuthorizedBackendService, UIMessageService, UrlService) {
     return {
       templateUrl: 'scripts/form/form.directive.html',
@@ -331,6 +331,28 @@ define([
           return ($rootScope.documentTitle && $rootScope.documentTitle.toLowerCase().indexOf('biosample') > -1);
         };
 
+        // scroll within the template-container to the field with locator
+        $scope.scrollTo = function (locator) {
+
+          var target = angular.element(locator);
+          if (target && target.offset()) {
+
+            $scope.setHeight = function () {
+
+              var window = angular.element($window);
+              var windowHeight = $(window).height();
+              var targetTop = $(locator).offset().top;
+              var targetHeight = $(locator).outerHeight(true);
+              var scrollTop = jQuery('.template-container').scrollTop();
+              var newTop = scrollTop + targetTop - ( windowHeight - targetHeight ) / 2;
+              jQuery('.template-container').animate({scrollTop: newTop}, 'slow');
+
+            };
+            $timeout($scope.setHeight, 100);
+          }
+        };
+
+
 
         // validate a biosample template
         $scope.checkBiosample = function (instance) {
@@ -356,16 +378,14 @@ define([
                     var errors = data.messages;
                     for (var i = 0; i < errors.length; i++) {
 
-                      console.log(errors[i]);
-
 
                       $scope.$emit('validationError',
                           ['add', errors[i], 'biosample'+i]);
 
-
-
                     }
-                    //jQuery.scrollto('biosample-validation-errors');
+                    // scroll in the error messsages
+                    $timeout($scope.scrollTo('.edit-actions'), 100);
+
 
                   } else {
 

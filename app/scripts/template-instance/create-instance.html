@@ -28,7 +28,7 @@
               <li ng-repeat="field in invalidFieldValues">{{field}}</li>
             </ul>
           </div>
-          <div id="biosample-validation-errors" ng-if="!isEmpty(validationErrors)" class="alert alert-danger" role="alert"  style="font-size:26px">
+          <div  ng-if="!isEmpty(validationErrors)" class="alert alert-danger" role="alert"  style="font-size:26px">
             <p><i class="fa fa-exclamation-triangle"></i><span translate>VALIDATION.groupHeader.validationErrors</span>
             </p>
             <ul>
