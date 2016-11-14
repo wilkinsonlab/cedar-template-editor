@@ -370,7 +370,7 @@ define([
                     $scope.$emit('validationError',
                         ['remove', '', 'biosample']);
 
-                    UIMessageService.flashSuccess('BioSample Submission Validated', {"title": "title"},
+                    UIMessageService.flashValidationSuccess('BioSample Submission Validated', {"title": "title"},
                         'Success');
                   }
 

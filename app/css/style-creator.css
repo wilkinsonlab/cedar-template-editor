@@ -9236,13 +9236,13 @@ button {
 }
 .navbar .navbar-back .back-arrow {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 30px;
   margin: 0 0 0 10px;
   font-weight: 100;
 }
 @media (min-width: 768px) {
   .navbar .navbar-back .back-arrow {
-    font-size: 22px;
+    font-size: 30px;
   }
 }
 .navbar .navbar-back .back-arrow-click {
@@ -9263,7 +9263,7 @@ button {
 }
 .navbar .navbar-back .document-title {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 30px;
   margin: 0 0 0 10px;
   font-weight: 200;
 }
@@ -10460,6 +10460,12 @@ body.search-browse-modal a.navbar-brand {
   clear: both;
   content: '';
 }
+#template-name,
+#template-description,
+#element-name,
+#element-description {
+  font-size: 30px;
+}
 .template-header {
   width: 100%;
   background-color: #2e5365;
@@ -10557,7 +10563,7 @@ body.search-browse-modal a.navbar-brand {
 }
 @media (min-width: 768px) {
   .template-body .right-body {
-    padding-top: 35px;
+    padding-top: 5px;
   }
 }
 .template-body .right-body .btn-preview-form {
@@ -10722,6 +10728,8 @@ body.search-browse-modal a.navbar-brand {
 }
 .form-control.empty ~ .floating-label {
   opacity: 1;
+  font-size: 20px;
+  color: #999;
 }
 .form-control:focus ~ .floating-label,
 .form-control:not(.empty) ~ .floating-label,
@@ -11215,7 +11223,7 @@ section.dashboard-elements .margin-reset-row .template-item:hover .back-panel {
   height: 40px;
   padding-bottom: 0px;
   padding-top: 16px;
-  font-size: 14px;
+  font-size: 20px;
   color: #000000;
   -webkit-transition: border-color 0.3s linear;
           transition: border-color 0.3s linear;
@@ -11224,7 +11232,7 @@ section.dashboard-elements .margin-reset-row .template-item:hover .back-panel {
 .template-body form .form-group .form-control.empty ~ .floating-label,
 #element_control_term .form-group .form-control.empty ~ .floating-label {
   top: 10px;
-  color: black;
+  color: #999;
 }
 .template-body form .form-group .form-control:focus ~ .floating-label,
 #element_control_term .form-group .form-control:focus ~ .floating-label,
@@ -13595,7 +13603,8 @@ p.instructions {
 }
 .ui-select-container ~ .floating-label {
   top: 12px;
-  color: black;
+  color: #999;
+  font-size: 20px;
 }
 .ui-select-bootstrap .ui-select-choices-row.active > span {
   color: #333 !important;
@@ -13603,6 +13612,7 @@ p.instructions {
 }
 .ui-select-choices .recommendedValue {
   color: #70967d;
+  font-size: 20px;
 }
 .ui-select-choices .controlledTerm {
   color: #325364;

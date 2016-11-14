@@ -14,6 +14,20 @@ define([
       serviceId: "UIMessageService"
     };
 
+    service.flashValidationSuccess = function (messageKey, messageParameters, title) {
+
+        var flash = function (type, messageKey, messageParameters, titleKey) {
+        toasty[type]({
+          title: $translate.instant(titleKey),
+          msg  : '<span style="font-size:30px">' + $translate.instant(messageKey, messageParameters) + '</span>',
+          timeout: 10000,
+          html: true
+        });
+      };
+
+      flash('success', messageKey, messageParameters, title);
+    };
+
     service.flashSuccess = function (messageKey, messageParameters, title) {
       this.flash('success', messageKey, messageParameters, title);
     };

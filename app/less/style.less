@@ -263,12 +263,12 @@ button {
 
     .back-arrow {
       color: @white;
-      font-size: 18px;
+      font-size: 30px;
       margin: 0 0 0 10px;
       font-weight: 100;
 
       @media (min-width: @screen-sm-min) {
-        font-size: 22px;
+        font-size: 30px;
       }
     }
 
@@ -292,7 +292,7 @@ button {
 
     .document-title {
       color: @white;
-      font-size: 18px;
+      font-size: 30px;
       margin: 0 0 0 10px;
       font-weight: 200;
     }
@@ -1699,6 +1699,9 @@ body.search-browse-modal {
   }
 }
 
+#template-name, #template-description, #element-name, #element-description {
+  font-size:30px;
+}
 .template-header {
   width: 100%;
   background-color: @header-bg-color;
@@ -1805,7 +1808,7 @@ body.search-browse-modal {
     padding-top: 30px;
 
     @media (min-width: @screen-sm-min) {
-      padding-top: 35px;
+      padding-top: 5px;
     }
 
     .btn-preview-form {
@@ -1995,6 +1998,8 @@ body.search-browse-modal {
 
 .form-control.empty ~ .floating-label {
   opacity: 1;
+  font-size:20px;
+  color:#999;
 }
 
 .form-control:focus ~ .floating-label,
@@ -2459,14 +2464,14 @@ section.dashboard-elements {
       height: 40px;
       padding-bottom: 0px;
       padding-top: 16px;
-      font-size: 14px;
+      font-size: 20px;
       color: @black;
       transition: border-color 0.3s linear;
       background: #fff;
 
       &.empty ~ .floating-label {
         top: 10px;
-        color:black;
+        color:#999;
 
       }
 
@@ -5123,7 +5128,8 @@ p.instructions {
 
 .ui-select-container ~ .floating-label {
   top: 12px;
-  color:black;
+  color:#999;
+  font-size:20px;
 
 
 }
@@ -5142,6 +5148,7 @@ p.instructions {
   .recommendedValue {
     //color: #32a94a;
     color: #70967d;
+    font-size:20px;
   }
 
   .controlledTerm {
