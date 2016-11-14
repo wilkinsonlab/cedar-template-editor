@@ -10729,7 +10729,7 @@ body.search-browse-modal a.navbar-brand {
 .form-control.empty ~ .floating-label {
   opacity: 1;
   font-size: 20px;
-  color: black;
+  color: #5795ba;
 }
 .form-control:focus ~ .floating-label,
 .form-control:not(.empty) ~ .floating-label,
@@ -11232,7 +11232,7 @@ section.dashboard-elements .margin-reset-row .template-item:hover .back-panel {
 .template-body form .form-group .form-control.empty ~ .floating-label,
 #element_control_term .form-group .form-control.empty ~ .floating-label {
   top: 10px;
-  color: black;
+  color: #5795ba;
 }
 .template-body form .form-group .form-control:focus ~ .floating-label,
 #element_control_term .form-group .form-control:focus ~ .floating-label,
@@ -13603,7 +13603,7 @@ p.instructions {
 }
 .ui-select-container ~ .floating-label {
   top: 12px;
-  color: black;
+  color: #5795ba;
   font-size: 20px;
 }
 .ui-select-bootstrap .ui-select-choices-row.active > span {
