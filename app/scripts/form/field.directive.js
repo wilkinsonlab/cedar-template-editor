@@ -11,10 +11,10 @@ define([
 
   fieldDirective.$inject = ["$rootScope", "$sce", "$document", "$translate", "$filter", "SpreadsheetService",
                             "DataManipulationService", "FieldTypeService", "controlledTermDataService",
-                            "StringUtilsService", "$http", "$q"];
+                            "StringUtilsService", "$http"];
 
   function fieldDirective($rootScope, $sce, $document, $translate, $filter, SpreadsheetService, DataManipulationService,
-                          FieldTypeService, controlledTermDataService, StringUtilsService, $http, $q) {
+                          FieldTypeService, controlledTermDataService, StringUtilsService, $http) {
 
 
     var linker = function ($scope, $element, attrs) {
@@ -255,7 +255,7 @@ define([
         if (field._valueConstraints.literals[index].selectedByDefault == false) {
           delete field._valueConstraints.literals[index].selectedByDefault;
         }
-      }
+      };
 
       // Sets the default options for the 'radio' button based on the options selected at the UI
       $scope.radioModelToDefaultOptions = function (index) {
@@ -264,7 +264,7 @@ define([
             delete field._valueConstraints.literals[i].selectedByDefault;
           }
         }
-      }
+      };
 
       // Sets UI selections based on the default options
       $scope.defaultOptionsToUI = function () {
@@ -299,7 +299,7 @@ define([
             }
           }
         }
-      }
+      };
 
       // Sets the instance @value fields based on the options selected at the UI
       $scope.updateModelFromUI = function () {
@@ -334,7 +334,7 @@ define([
         if ($scope.model.length == 0) {
           $scope.model.push({'@value': null});
         }
-      }
+      };
 
       // Updates the model for fields whose values have been constrained using controlled terms
       $scope.updateModelFromUIControlledField = function () {
@@ -364,7 +364,7 @@ define([
             $scope.model['@value'] = null;
           }
         }
-      }
+      };
 
       // Set the UI with the values (@value) from the model
       $scope.updateUIFromModel = function () {
@@ -389,7 +389,7 @@ define([
             $scope.optionsUI.options.push(valueLabel);
           }
         }
-      }
+      };
 
       $scope.updateUIFromModelControlledField = function () {
         if ($rootScope.isArray($scope.model)) {
@@ -409,7 +409,7 @@ define([
             label: $scope.model._valueLabel
           };
         }
-      }
+      };
 
       // Initializes model for selection fields (checkbox, radio and list).
       $scope.initializeSelectionField = function () {
@@ -429,7 +429,7 @@ define([
             }
           }
         }
-      }
+      };
 
       // Initializes model for fields constrained using controlled terms
       $scope.initializeControlledField = function () {
@@ -458,7 +458,7 @@ define([
             }
           }
         }
-      }
+      };
 
       // Sets the default @value for non-selection fields (i.e., text, paragraph, date, email, numeric, phone)
       $scope.setDefaultValueIfEmpty = function(m) {
@@ -483,7 +483,7 @@ define([
             }
           }
         }
-      }
+      };
 
       $scope.uuid = DataManipulationService.generateTempGUID();
 
@@ -959,7 +959,7 @@ define([
 
       $scope.getShortId = function (uri, maxLength) {
         return StringUtilsService.getShortId(uri, maxLength);
-      }
+      };
 
       $scope.getId = function (index) {
         return DataManipulationService.getLocator($scope.field, index);
@@ -970,140 +970,98 @@ define([
 
       // Set the LINCS molecule CID for the given name
       $scope.setCidForName = function (name) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule CID for name: " + name + " (previously: " + $scope.name + ")");
+        console.log("Getting LINCS small molecule CID for name: " + name + " (previously: " + $scope.lincs.name + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + name + '/synonyms/JSON';
-        $scope.name = name;
-        console.log("Updated name value: " + $scope.name);
         $http.get(url)
           .success(function(data, status, headers, config) {
-            $scope.cid = data.InformationList.Information[0].CID;
-            console.log("Found CID: " + $scope.cid);
-            deferred.resolve(data);
-          })
-          .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            $scope.lincs.cid = data.InformationList.Information[0].CID;
+            console.log("Found CID: " + $scope.lincs.cid);
           });
-        return deferred.promise;
       };
 
       // Set the LINCS molecule SMILES string for the given name
       $scope.setSmilesForName = function (name) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule SMILES for name: " + name + " (previously: " + $scope.name + ")");
+        console.log("Getting LINCS small molecule SMILES for name: " + name + " (previously: " + $scope.lincs.name + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + name + '/synonyms/JSON';
-        $scope.name = name;
-        console.log("Updated name value: " + $scope.name);
         $http.get(url)
-          .success(function (data, status, headers, config) {
-            var cid = data.InformationList.Information[0].CID;
-            $scope.setSmilesForCid(cid);
-            deferred.resolve(data);
-          })
-          .error(function (data, status, headers, config) {
-            deferred.reject(status);
+          .success(function(data, status, headers, config) {
+            var pubchemCid = data.InformationList.Information[0].CID;
+            $scope.setSmilesForCid(pubchemCid);
           });
-        return deferred.promise;
       };
 
       // Set the LINCS molecule name for the given CID
       $scope.setNameForCid = function (cid) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule name for CID: " + cid + " (previously: " + $scope.cid + ")");
+        console.log("Getting LINCS small molecule name for CID: " + cid + " (previously: " + $scope.lincs.cid + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/' + cid + '/synonyms/JSON';
-        $scope.cid = cid;
-        console.log("Updated CID value: " + $scope.cid);
         $http.get(url)
           .success(function(data, status, headers, config) {
-            $scope.name = data.InformationList.Information[0].Synonym[0];
-            console.log("Found name: " + $scope.name);
-            deferred.resolve(data);
-          })
-          .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            $scope.lincs.name = data.InformationList.Information[0].Synonym[0];
+            console.log("Found name: " + $scope.lincs.name);
           });
-        return deferred.promise;
       };
 
       // Set the LINCS molecule SMILES string for the given CID
       $scope.setSmilesForCid = function (cid) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule SMILES for CID: " + cid + " (previously: " + $scope.cid + ")");
+        console.log("Getting LINCS small molecule SMILES for CID: " + cid + " (previously: " + $scope.lincs.cid + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/' + cid + '/JSON';
-        $scope.cid = cid;
-        console.log("Updated CID value: " + $scope.cid);
         $http.get(url)
           .success(function(data, status, headers, config) {
             var props = data.PC_Compounds[0].props;
             for (var i = 0; i < props.length; i++) {
               if (props[i].urn.label === "SMILES") {
                 if (props[i].urn.name === "Isomeric") {
-                  $scope.smiles = props[i].value.sval;
-                  console.log("Found SMILES: " + $scope.smiles);
-                  deferred.resolve(data);
+                  $scope.lincs.smiles = props[i].value.sval;
+                  console.log("Found SMILES: " + $scope.lincs.smiles);
                 }
               }
             }
           })
           .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            // TODO
           });
-        return deferred.promise;
       };
 
       // Set the LINCS molecule CID for the given SMILES string
       $scope.setCidForSmiles = function (smiles) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule CID for SMILES: " + smiles + " (previously: " + $scope.smiles + ")");
+        console.log("Getting LINCS small molecule CID for SMILES: " + smiles + " (previously: " + $scope.lincs.smiles + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/record/JSON?Content-Type:%20application/x-www-form-urlencoded&smiles=' + encodeURIComponent(smiles);
-        $scope.smiles = smiles;
-        console.log("Updated Smiles value: " + $scope.smiles);
         $http.get(url)
           .success(function(data, status, headers, config) {
-            $scope.cid = data.PC_Compounds[0].id.id.cid;
-            console.log("Found CID: " + $scope.cid);
-            deferred.resolve(data);
+            $scope.lincs.cid = data.PC_Compounds[0].id.id.cid;
+            console.log("Found CID: " + $scope.lincs.cid);
           })
           .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            // TODO
           });
-        return deferred.promise;
       };
 
       // Set the LINCS molecule name for the given SMILES string
       $scope.setNameForSmiles = function (smiles) {
-        var deferred = $q.defer();
-        console.log("Getting LINCS small molecule name for SMILES: " + smiles + " (previously: " + $scope.smiles + ")");
+        console.log("Getting LINCS small molecule name for SMILES: " + smiles + " (previously: " + $scope.lincs.smiles + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/record/JSON?Content-Type:%20application/x-www-form-urlencoded&smiles=' + encodeURIComponent(smiles);
-        $scope.smiles = smiles;
-        console.log("Updated Smiles value: " + $scope.smiles);
         $http.get(url)
           .success(function(data, status, headers, config) {
             var cid = data.PC_Compounds[0].id.id.cid;
             $scope.setNameForCid(cid);
-            deferred.resolve(data);
           })
           .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            // TODO
           });
-        return deferred.promise;
       };
 
       // Get an array of names from PubChem that match the given search string
       $scope.getNamesFromPubChem = function (search, limit) {
-        var deferred = $q.defer();
         console.log("Getting names from PubChem for search string: " + search);
         var url = 'https://pubchem.ncbi.nlm.nih.gov/pcautocp/pcautocp.cgi?dict=pc_compoundnames&q=' + search + '&n=' + limit;
         $http.get(url)
           .success(function(data, status, headers, config) {
-            $scope.names = data.autocp_array;
-            console.log("Received names list: " + $scope.names);
-            deferred.resolve(data);
+            $scope.lincs.names = data.autocp_array;
+            console.log("Received names list: " + $scope.lincs.names);
           })
           .error(function (data, status, headers, config) {
-            deferred.reject(status);
+            // TODO
           });
-        return deferred.promise;
       };
 
       $scope.setFieldsForName = function (name) {
@@ -1138,6 +1096,13 @@ define([
         isEditData    : "="
       },
       controller : function ($scope, $element) {
+        $scope.lincs = {
+          name: '',
+          cid: '',
+          smiles: '',
+          names : []
+        };
+
         var addPopover = function ($scope) {
           //Initializing Bootstrap Popover fn for each item loaded
           setTimeout(function () {

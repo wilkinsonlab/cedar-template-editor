@@ -12,14 +12,15 @@
     <input type="text"
            id="{{getId(0)}}"
            class="form-control"
+           name="lincs-name"
            ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
            placeholder="Name"
            aria-label="{{$root.schemaOf(field)._ui.description}}"
-           ng-model="name"
+           ng-model="lincs.name"
            ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
-           ng-blur="setFieldsForName(name);"
-           ng-change="getNamesFromPubChem(name,20);"
-           typeahead="name for name in names | filter:$viewValue"/>
+           ng-blur="setFieldsForName(lincs.name);"
+           ng-change="getNamesFromPubChem(lincs.name,20);"
+           typeahead="lincsName for lincsName in lincs.names | filter:$viewValue"/>
 
     <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
 
@@ -35,13 +36,13 @@
     <input type="text"
            id="{{getId(1)}}"
            class="form-control"
+           name="lincs-cid"
            ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
            placeholder="CID"
            aria-label="{{$root.schemaOf(field)._ui.description}}"
-           ng-model="cid"
+           ng-model="lincs.cid"
            ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
-           ng-change=""
-           ng-blur="setFieldsForCid(cid);"/>
+           ng-blur="setFieldsForCid(lincs.cid);"/>
 
     <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
 
@@ -57,12 +58,13 @@
     <input type="text"
            id="{{getId(2)}}"
            class="form-control"
+           name="lincs-smiles"
            ng-class="{'required': $root.schemaOf(field)._valueConstraints.requiredValue}"
            placeholder="SMILES"
            aria-label="{{$root.schemaOf(field)._ui.description}}"
-           ng-model="smiles"
+           ng-model="lincs.smiles"
            ng-disabled="!$root.isRuntime() || preview" with-floating-label=""
-           ng-blur="setFieldsForSmiles(smiles);"/>
+           ng-blur="setFieldsForSmiles(lincs.smiles);"/>
 
     <span class="warning-text">{{$root.schemaOf(field)._ui.warningText}}</span>
 
