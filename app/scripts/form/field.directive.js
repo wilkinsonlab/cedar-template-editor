@@ -970,21 +970,18 @@ define([
 
       // Set the LINCS molecule CID for the given name
       $scope.setCidForName = function (name) {
-        console.log("Getting LINCS small molecule CID for name: " + name + " (previously: " + $scope.lincs.name + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + name + '/synonyms/JSON';
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             $scope.lincs.cid = data.InformationList.Information[0].CID;
-            console.log("Found CID: " + $scope.lincs.cid);
           });
       };
 
       // Set the LINCS molecule SMILES string for the given name
       $scope.setSmilesForName = function (name) {
-        console.log("Getting LINCS small molecule SMILES for name: " + name + " (previously: " + $scope.lincs.name + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + name + '/synonyms/JSON';
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             var pubchemCid = data.InformationList.Information[0].CID;
             $scope.setSmilesForCid(pubchemCid);
           });
@@ -992,27 +989,23 @@ define([
 
       // Set the LINCS molecule name for the given CID
       $scope.setNameForCid = function (cid) {
-        console.log("Getting LINCS small molecule name for CID: " + cid + " (previously: " + $scope.lincs.cid + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/' + cid + '/synonyms/JSON';
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             $scope.lincs.name = data.InformationList.Information[0].Synonym[0];
-            console.log("Found name: " + $scope.lincs.name);
           });
       };
 
       // Set the LINCS molecule SMILES string for the given CID
       $scope.setSmilesForCid = function (cid) {
-        console.log("Getting LINCS small molecule SMILES for CID: " + cid + " (previously: " + $scope.lincs.cid + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/' + cid + '/JSON';
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             var props = data.PC_Compounds[0].props;
             for (var i = 0; i < props.length; i++) {
               if (props[i].urn.label === "SMILES") {
                 if (props[i].urn.name === "Isomeric") {
                   $scope.lincs.smiles = props[i].value.sval;
-                  console.log("Found SMILES: " + $scope.lincs.smiles);
                 }
               }
             }
@@ -1024,12 +1017,10 @@ define([
 
       // Set the LINCS molecule CID for the given SMILES string
       $scope.setCidForSmiles = function (smiles) {
-        console.log("Getting LINCS small molecule CID for SMILES: " + smiles + " (previously: " + $scope.lincs.smiles + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/record/JSON?Content-Type:%20application/x-www-form-urlencoded&smiles=' + encodeURIComponent(smiles);
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             $scope.lincs.cid = data.PC_Compounds[0].id.id.cid;
-            console.log("Found CID: " + $scope.lincs.cid);
           })
           .error(function (data, status, headers, config) {
             // TODO
@@ -1038,10 +1029,9 @@ define([
 
       // Set the LINCS molecule name for the given SMILES string
       $scope.setNameForSmiles = function (smiles) {
-        console.log("Getting LINCS small molecule name for SMILES: " + smiles + " (previously: " + $scope.lincs.smiles + ")");
         var url = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/record/JSON?Content-Type:%20application/x-www-form-urlencoded&smiles=' + encodeURIComponent(smiles);
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             var cid = data.PC_Compounds[0].id.id.cid;
             $scope.setNameForCid(cid);
           })
@@ -1052,12 +1042,10 @@ define([
 
       // Get an array of names from PubChem that match the given search string
       $scope.getNamesFromPubChem = function (search, limit) {
-        console.log("Getting names from PubChem for search string: " + search);
         var url = 'https://pubchem.ncbi.nlm.nih.gov/pcautocp/pcautocp.cgi?dict=pc_compoundnames&q=' + search + '&n=' + limit;
         $http.get(url)
-          .success(function(data, status, headers, config) {
+          .success(function(data) {
             $scope.lincs.names = data.autocp_array;
-            console.log("Received names list: " + $scope.lincs.names);
           })
           .error(function (data, status, headers, config) {
             // TODO

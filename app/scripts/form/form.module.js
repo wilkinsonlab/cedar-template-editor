@@ -14,7 +14,8 @@ define([
   'cedar/template-editor/form/right-click.directive',
   'cedar/template-editor/finder/cedar-finder.directive',
   'cedar/template-editor/form/auto-focus.directive',
-  'cedar/template-editor/search-browse/cedar-infinite-scroll.directive'
+  'cedar/template-editor/search-browse/cedar-infinite-scroll.directive',
+  'cedar/template-editor/form/lincs.directive'
 ], function(angular) {
   angular.module('cedar.templateEditor.form', [
     'cedar.templateEditor.controlledTerm',
@@ -29,6 +30,7 @@ define([
     'cedar.templateEditor.form.rightClickDirective',
     'cedar.templateEditor.finder.cedarFinderDirective',
     'cedar.templateEditor.form.autoFocusDirective',
-    'cedar.templateEditor.searchBrowse.cedarInfiniteScrollDirective'
+    'cedar.templateEditor.searchBrowse.cedarInfiniteScrollDirective',
+    'cedar.templateEditor.form.lincsDirective'
   ]);
 });
