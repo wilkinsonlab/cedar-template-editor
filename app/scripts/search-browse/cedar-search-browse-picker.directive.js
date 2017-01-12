@@ -87,7 +87,7 @@ define([
           vm.isResourceTypeActive = isResourceTypeActive;
           vm.isSearching = false;
           vm.launchInstance = launchInstance;
-          vm.launchInstanceNew = launchInstanceNew;
+          vm.populateForm = populateForm;
           vm.copyToWorkspace = copyToWorkspace;
           vm.copyResource = copyResource;
           vm.setResourceInfoVisibility = setResourceInfoVisibility;
@@ -552,8 +552,6 @@ define([
 
           function launchInstance(resource, newForm) {
 
-            console.log('launchInstance ' + newForm);
-
             // may be setting which form to use
             if (newForm != null) {
               $rootScope.useRunTimeCode = newForm;
@@ -574,9 +572,7 @@ define([
             $location.url(url);
           }
 
-          function launchInstanceNew(resource, newForm) {
-
-            console.log('launchInstanceNew  ' + newForm);
+          function populateForm(resource, newForm) {
 
             // may be setting which form to use
             if (newForm != null) {
@@ -617,7 +613,7 @@ define([
               } else {
                 if (r.nodeType == 'template') {
                   if ($rootScope.useRunTimeCode) {
-                    launchInstanceNew(r, $rootScope.useRunTimeCode);
+                    populateForm(r, $rootScope.useRunTimeCode);
                   } else {
                     launchInstance(r, $rootScope.useRunTimeCode);
                   }

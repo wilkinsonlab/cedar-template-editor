@@ -9,11 +9,13 @@ define([
   // TODO: refactor to cedarFieldDirective <cedar-field-directive>
 
 
-  fieldDirective.$inject = ["$rootScope", "$sce", "$document", "$translate", "$filter", "SpreadsheetService",
+  fieldDirective.$inject = ["$rootScope", "$sce", "$document", "$translate", "$filter", "$timeout",
+                            "SpreadsheetService",
                             "DataManipulationService", "FieldTypeService", "controlledTermDataService",
                             "StringUtilsService"];
 
-  function fieldDirective($rootScope, $sce, $document, $translate, $filter, SpreadsheetService, DataManipulationService,
+  function fieldDirective($rootScope, $sce, $document, $translate, $filter, $timeout, SpreadsheetService,
+                          DataManipulationService,
                           FieldTypeService, controlledTermDataService, StringUtilsService) {
 
 
@@ -1054,6 +1056,48 @@ define([
       $scope.selectField = function () {
         console.log('selectField');
       };
+
+      $scope.log = function (value) {
+        console.log(value);
+      }
+
+      $scope.availableMins = [
+        {value: '', 		label: 'None'},
+        {value: '0', 		label: '0'},
+        {value: '1', 		label: '1'},
+        {value: '2', 		label: '2'},
+        {value: '3', 		label: '3'},
+        {value: '4', 		label: '4'}
+      ];
+
+      $scope.availableMaxs = [
+        {value: '', 		label: 'None'},
+        {value: '1', 		label: '1'},
+        {value: '2', 		label: '2'},
+        {value: '3', 		label: '3'},
+        {value: '4', 		label: '4'}
+      ];
+
+      $scope.currentMin = $scope.availableMins[0];
+      $scope.currentMax = $scope.availableMaxs[0];
+      //
+      ////$scope.changeSelectedOption = function() {
+      //  $scope.currentCommand = $scope.availableCommands[1];
+      //};
+      //
+
+
+      $scope.adjustMin = function () {
+          $scope.currentMin = $scope.availableMins[0];
+          console.log($scope.currentMin);
+          console.log($scope.currentMax);
+      }
+
+      $scope.adjustMax = function () {
+          $scope.currentMax = $scope.availableMaxs[0];
+          console.log($scope.currentMin);
+          console.log($scope.currentMax);
+      }
 
       $scope.getShortText = function (text, maxLength, finalString, emptyString) {
         return StringUtilsService.getShortText(text, maxLength, finalString, emptyString);
