@@ -13184,6 +13184,7 @@ p.instructions {
 }
 .bootstrap-select .dropdown-menu li a {
   padding: 8px 20px;
+  outline: none !important;
 }
 .bootstrap-select .dropdown-menu li a:hover {
   background-color: #5795ba;

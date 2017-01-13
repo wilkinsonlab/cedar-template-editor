@@ -22,6 +22,32 @@ define([
     var linker = function ($scope, $element, attrs) {
 
       var MIN_OPTIONS = 2;
+      $scope.availableMins = [
+        {value: '', label: 'None'},
+        {value: '0', label: '0'},
+        {value: '0', label: '1'},
+        {value: '1', label: '2'},
+        {value: '2', label: '3'},
+        {value: '3', label: '4'},
+        {value: '4', label: '5'},
+        {value: '5', label: '6'},
+        {value: '6', label: '7'},
+        {value: '7', label: '8'}
+      ];
+
+      $scope.availableMaxs = [
+        {value: '', label: 'None'},
+        {value: '0', label: '1'},
+        {value: '1', label: '2'},
+        {value: '2', label: '3'},
+        {value: '3', label: '4'},
+        {value: '4', label: '5'},
+        {value: '5', label: '6'},
+        {value: '6', label: '7'},
+        {value: '7', label: '8'}
+      ];
+      $scope.currentMin = $scope.availableMins[0];
+      $scope.currentMax = $scope.availableMaxs[0];
 
       var setDirectory = function () {
         var p = $rootScope.propertiesOf($scope.field);
@@ -1059,45 +1085,63 @@ define([
 
       $scope.log = function (value) {
         console.log(value);
-      }
-
-      $scope.availableMins = [
-        {value: '', 		label: 'None'},
-        {value: '0', 		label: '0'},
-        {value: '1', 		label: '1'},
-        {value: '2', 		label: '2'},
-        {value: '3', 		label: '3'},
-        {value: '4', 		label: '4'}
-      ];
-
-      $scope.availableMaxs = [
-        {value: '', 		label: 'None'},
-        {value: '1', 		label: '1'},
-        {value: '2', 		label: '2'},
-        {value: '3', 		label: '3'},
-        {value: '4', 		label: '4'}
-      ];
-
-      $scope.currentMin = $scope.availableMins[0];
-      $scope.currentMax = $scope.availableMaxs[0];
-      //
-      ////$scope.changeSelectedOption = function() {
-      //  $scope.currentCommand = $scope.availableCommands[1];
-      //};
-      //
+      };
 
 
-      $scope.adjustMin = function () {
-          $scope.currentMin = $scope.availableMins[0];
-          console.log($scope.currentMin);
-          console.log($scope.currentMax);
-      }
 
-      $scope.adjustMax = function () {
-          $scope.currentMax = $scope.availableMaxs[0];
-          console.log($scope.currentMin);
-          console.log($scope.currentMax);
-      }
+      // initialize the min and max selectors
+      $scope.initMinMax = function () {
+
+        for (var i=0;i< $scope.availableMins.length;i++) {
+          var m = $scope.availableMins[i];
+          if (m.value === ($scope.field.minItems || 0).toString()) {
+            $scope.currentMin = m;
+          }
+        }
+        for (var i=0;i< $scope.availableMaxs.length;i++) {
+          var m = $scope.availableMaxs[i];
+          if (m.value === ($scope.field.maxItems || 0).toString()) {
+            $scope.currentMax = m;
+          }
+        }
+      };
+
+      // keep min and max working together
+      $scope.adjustMinMax = function (min, max, adjustment) {
+
+        setTimeout(function () {
+          $scope.$apply(function () {
+
+
+            if (max.value !== "" && min.value === "") {
+              min = $scope.availableMins[1];  // set min to 0
+            }
+            if ((max.value !== "" || min.value === "") && (min.value > max.value)) {
+
+              if (adjustment == 'min') {
+                min = max;
+              } else {
+                max = min;
+              }
+
+            }
+
+            $scope.currentMin = min;
+            $scope.currentMax = max;
+            $scope.field.minItems = min.value;
+            $scope.field.maxItems = max.value;
+
+
+            if (max.value === "" && min.value === "") {
+              $scope.clearMinMax();
+            }
+          });
+
+        }, 0);
+
+      };
+
+
 
       $scope.getShortText = function (text, maxLength, finalString, emptyString) {
         return StringUtilsService.getShortText(text, maxLength, finalString, emptyString);

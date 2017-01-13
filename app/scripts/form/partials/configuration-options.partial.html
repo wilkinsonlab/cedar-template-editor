@@ -81,18 +81,18 @@
   </div>
 
   <!-- Cardinality tab  -->
-  <div id="cardinality-options" class="cardinality-options cardinality-selectors" ng-show="isTabActive('cardinality')" >
+  <div id="cardinality-options" class="cardinality-options cardinality-selectors" ng-show="isTabActive('cardinality')" ng-init="initMinMax()" >
       <div class="form-group validation-pattern pull-left min-items-option" >
         <label translate>GENERIC.Min</label>
-        <select class="" ng-model="currentMin" title=""
-            ng-change="adjustMax()"
+        <select class="" style="outline:none" ng-model="currentMin" title=""
+            ng-change="adjustMinMax(currentMin,currentMax,'max')"
             ng-options="v as v.label for v in availableMins track by v.value" select-picker="$event.stopPropagation();">
         </select>
       </div>
       <div class="form-group validation-pattern pull-left max-items-option" >
         <label translate>GENERIC.Max</label>
         <select class="" ng-model="currentMax"
-            ng-change="adjustMin()"
+            ng-change="adjustMinMax(currentMin,currentMax,'min')"
             title="" select-picker="$event.stopPropagation();"
             ng-options="c as c.label for c in availableMaxs track by c.value">
         </select>
