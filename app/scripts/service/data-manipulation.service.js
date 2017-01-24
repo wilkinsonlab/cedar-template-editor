@@ -62,6 +62,8 @@ define([
       return context;
     };
 
+
+
     // Function that generates a basic field definition
     service.isStaticField = function (field) {
       var schema = $rootScope.schemaOf(field);
@@ -280,6 +282,14 @@ define([
     // is the field multiple cardinality?
     service.isMultipleCardinality = function (fieldOrElement) {
       return fieldOrElement.items;
+    };
+
+    service.cardinalityString = function (fieldOrElement) {
+      var result  = '';
+      if (service.isMultipleCardinality(fieldOrElement)) {
+        result = '[' +  fieldOrElement.minItems + '...' +  (fieldOrElement.maxItems || 'N') + ']';
+      }
+      return result;
     };
 
 
@@ -797,6 +807,8 @@ define([
         }
         result = m[1];
       }
+      // Decode the class URI
+      result = decodeURIComponent(result);
       return result;
     };
 

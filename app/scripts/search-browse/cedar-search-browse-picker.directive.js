@@ -37,19 +37,20 @@ define([
           'resourceService',
           'UIMessageService',
           'UISettingsService',
-          'UrlService',
+          'QueryParamUtilsService',
           'AuthorizedBackendService',
           'TemplateInstanceService',
           'TemplateElementService',
           'TemplateService',
+          'FrontendUrlService',
           'CONST'
         ];
 
         function cedarSearchBrowsePickerController($location, $timeout, $scope, $rootScope, $translate, CedarUser,
                                                    resourceService,
-                                                   UIMessageService, UISettingsService, UrlService,
+                                                   UIMessageService, UISettingsService, QueryParamUtilsService,
                                                    AuthorizedBackendService, TemplateInstanceService,
-                                                   TemplateElementService, TemplateService, CONST) {
+                                                   TemplateElementService, TemplateService, FrontendUrlService, CONST) {
           var vm = this;
 
           vm.breadcrumbName = breadcrumbName;
@@ -74,6 +75,7 @@ define([
           vm.shareModalVisible = false;
           vm.renameModalVisible = false;
           vm.newFolderModalVisible = false;
+          vm.runTimeVisible = runTimeVisible;
 
           vm.getFacets = getFacets;
           vm.getForms = getForms;
@@ -441,8 +443,22 @@ define([
           }
 
           function init() {
+            //console.log("SearchAndBrowse.init()");
+            //console.log(vm.params);
+            //console.log($location.search());
             vm.isSearching = false;
-            if (vm.params.search) {
+            if (vm.params.sharing) {
+              if (vm.params.sharing == 'shared-with-me') {
+                vm.isSearching = true;
+                if (vm.showFavorites) {
+                  vm.showFavorites = false;
+                  updateFavorites();
+                }
+                // TODO: DO WE NEED THIS??
+                getFacets();
+                doSharedWithMe();
+              }
+            } else if (vm.params.search) {
               vm.isSearching = true;
               if (vm.showFavorites) {
                 vm.showFavorites = false;
@@ -466,23 +482,12 @@ define([
             updateResourceInfoPanel();
           }
 
-          function initSearch() {
-            if (vm.params.search) {
-              vm.isSearching = true;
-              getFacets();
-              doSearch(vm.params.search);
-            } else {
-              goToFolder(CedarUser.getHomeFolderId());
-            }
-          }
-
           function breadcrumbName(folderName) {
             if (folderName == '/') {
               return 'All';
             }
             return folderName;
           }
-
 
           function doSearch(term) {
             var resourceTypes = activeResourceTypes();
@@ -503,6 +508,25 @@ define([
                 }
             );
           }
+
+          function doSharedWithMe() {
+            //console.log("DO shared with me");
+            var resourceTypes = activeResourceTypes();
+            var limit = UISettingsService.getRequestLimit();
+            vm.offset = 0;
+            var offset = vm.offset;
+            resourceService.sharedWithMeResources(
+                {resourceTypes: resourceTypes, sort: sortField(), limit: limit, offset: offset},
+                function (response) {
+                  vm.isSearching = true;
+                  vm.resources = response.resources;
+                  vm.totalCount = response.totalCount;
+                },
+                function (error) {
+                  UIMessageService.showBackendError('SERVER.SEARCH.error', error);
+                }
+            );
+          };
 
           function copyToWorkspace(resource) {
             if (!resource) {
@@ -550,29 +574,14 @@ define([
             );
           }
 
+
+
+          function runTimeVisible() {
+            return $rootScope.runTimeVisible;
+          }
+
           function launchInstance(resource, newForm) {
 
-            // may be setting which form to use
-            if (newForm != null) {
-              $rootScope.useRunTimeCode = newForm;
-            }
-
-            if (!resource) {
-              resource = getSelection();
-            }
-
-            var params = $location.search();
-            var folderId;
-            if (params.folderId) {
-              folderId = params.folderId;
-            } else {
-              folderId = vm.currentFolderId
-            }
-            var url = UrlService.getInstanceCreate(resource['@id'], folderId);
-            $location.url(url);
-          }
-
-          function populateForm(resource, newForm) {
 
             // may be setting which form to use
             if (newForm != null) {
@@ -583,17 +592,26 @@ define([
               resource = getSelection();
             }
 
-            var params = $location.search();
-            var folderId;
-            if (params.folderId) {
-              folderId = params.folderId;
-            } else {
-              folderId = vm.currentFolderId
-            }
-            var url = UrlService.getInstanceCreate(resource['@id'], folderId);
+            var url = FrontendUrlService.getInstanceCreate(resource['@id'], vm.getFolderId());
             $location.url(url);
           }
 
+
+          function launchInstanceNew(resource, newForm) {
+
+
+            // may be setting which form to use
+            if (newForm != null) {
+              $rootScope.useRunTimeCode = newForm;
+            }
+
+            if (!resource) {
+              resource = getSelection();
+            }
+
+            var url = FrontendUrlService.getInstanceCreate(resource['@id'], vm.getFolderId());
+            $location.url(url);
+          }
 
 
           function goToResource(resource) {
@@ -639,22 +657,22 @@ define([
               }
               switch (r.nodeType) {
                 case CONST.resourceType.TEMPLATE:
-                  $location.path(UrlService.getTemplateEdit(id));
+                  $location.path(FrontendUrlService.getTemplateEdit(id));
                   break;
                 case CONST.resourceType.ELEMENT:
                   if (vm.onDashboard()) {
-                    $location.path(UrlService.getElementEdit(id));
+                    $location.path(FrontendUrlService.getElementEdit(id));
                   }
                   break;
                 case CONST.resourceType.INSTANCE:
-                  $location.path(UrlService.getInstanceEdit(id));
+                  $location.path(FrontendUrlService.getInstanceEdit(id));
                   break;
                 case CONST.resourceType.LINK:
                   $location.path(scope.href);
                   break;
-                //case CONST.resourceType.FOLDER:
-                //  vm.showEditFolder(r);
-                //  break;
+                  //case CONST.resourceType.FOLDER:
+                  //  vm.showEditFolder(r);
+                  //  break;
               }
             }
           }
@@ -847,7 +865,7 @@ define([
           function goToFolder(folderId) {
             if (vm.onDashboard()) {
               console.log('goToFolder ' + folderId);
-              $location.url(UrlService.getFolderContents(folderId));
+              $location.url(FrontendUrlService.getFolderContents(folderId));
             } else {
               vm.params.folderId = folderId;
               init();
@@ -981,12 +999,6 @@ define([
             init();
           });
 
-          $scope.$on('search', function (event, searchTerm) {
-            console.log('on search');
-            vm.params.search = searchTerm;
-            initSearch();
-          });
-
           $scope.hideModal = function (id) {
             jQuery('#' + id).modal('hide');
           };
@@ -1104,16 +1116,34 @@ define([
           // open the new folder modal
           function showNewFolderModal() {
             vm.newFolderModalVisible = true;
-            var params = $location.search();
-            var folderId;
-            if (params.folderId) {
-              folderId = params.folderId;
-            } else {
-              folderId = vm.currentFolderId
-            }
-            $scope.$broadcast('newFolderModalVisible', [vm.newFolderModalVisible, folderId]);
+            $scope.$broadcast('newFolderModalVisible', [vm.newFolderModalVisible, vm.getFolderId()]);
           }
 
+          vm.getFolderId = function () {
+            var folderId;
+            var queryStringFolderId = QueryParamUtilsService.getFolderId();
+            if (queryStringFolderId) {
+              folderId = queryStringFolderId;
+            } else {
+              folderId = vm.currentFolderId;
+            }
+            return folderId;
+          };
+
+          vm.goToMyWorkspace = function () {
+            var url = FrontendUrlService.getMyWorkspace();
+            $location.url(url);
+          };
+
+          vm.goToSearchAll = function () {
+            var url = FrontendUrlService.getSearchAll(vm.getFolderId());
+            $location.url(url);
+          };
+
+          vm.goToSharedWithMe = function () {
+            var url = FrontendUrlService.getSharedWithMe(vm.getFolderId());
+            $location.url(url);
+          };
 
         }
       }
