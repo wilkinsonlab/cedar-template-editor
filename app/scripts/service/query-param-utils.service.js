@@ -22,6 +22,20 @@ define([
       return service.getQueryParameter("folderId");
     }
 
+    service.folderId = function (id) {
+      if (id) {
+        $location.search().folderId = id;
+      }
+      return service.getQueryParameter("folderId");
+    };
+
+    service.resourceId = function (id) {
+      if (id) {
+        $location.search().resourceId = id;
+      }
+      return service.getQueryParameter("resourceId");
+    };
+
     service.getQueryParameter = function(parameterName) {
       var params = $location.search();
       return params[parameterName];

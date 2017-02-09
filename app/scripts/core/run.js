@@ -492,7 +492,7 @@ define([
     };
 
     // use the new form and hide the old form
-    $rootScope.useNewForm = true;
+    $rootScope.useNewForm = false;
 
 
   };

@@ -55,18 +55,25 @@ define([
         if (folderId) {
           queryParams['folderId'] = folderId;
         }
+        var resourceId = QueryParamUtilsService.resourceId();
+        if (resourceId) {
+          queryParams['resourceId'] = resourceId;
+        }
         /*if (params.search) {
          queryParams['search'] = params.search;
          }*/
       }
       var url = $rootScope.util.buildUrl(baseUrl, queryParams);
+      var resourceId = QueryParamUtilsService.resourceId();
+      if (resourceId) {
+        url += '#' + resourceId;
+      }
       $location.url(url);
       $window.scrollTo(0, 0);
 
     };
 
     vm.search = function (searchTerm) {
-      console.log('searchTerm ' + searchTerm);
       if (vm.isDashboard()) {
         vm.searchTerm = searchTerm;
         var baseUrl = '/dashboard';
@@ -127,6 +134,7 @@ define([
 
     $rootScope.$on('$locationChangeSuccess', function (event, next, current) {
       vm.searchTerm = $location.search().search;
+      console.log($location.search());
       vm.path = $location.path();
       $rootScope.setHeader();
       $document.unbind('keypress');

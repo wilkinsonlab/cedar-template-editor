@@ -97,7 +97,7 @@ define([
           vm.pathInfo = [];
           vm.params = $location.search();
           vm.resources = [];
-          vm.selectedResource = null;
+          vm.selectedResource;
           vm.currentFolder = null;
           vm.hasSelection = hasSelection;
           vm.getSelection = getSelection;
@@ -159,8 +159,13 @@ define([
           };
 
           vm.selectResource = function (resource) {
+
+            var id = resource['@id'];
+            console.log('selectResource ' + id);
             vm.cancelDescriptionEditing();
             vm.selectedResource = resource;
+            QueryParamUtilsService.resourceId(id);
+            console.log($location.search());
             vm.getResourceDetails(resource);
             if (typeof vm.selectResourceCallback === 'function') {
               vm.selectResourceCallback(resource);
@@ -169,7 +174,6 @@ define([
 
           // show the info panel with this resource or find one
           vm.showInfoPanel = function () {
-            console.log('showInfoPanel');
             if (vm.isSharedMode) {
               resetSelected();
             } else if (!vm.selectedResource) {
@@ -414,6 +418,9 @@ define([
           setUIPreferences();
           init();
 
+
+
+
           function setUIPreferences() {
             var uip = CedarUser.getUIPreferences();
             //vm.showFavorites = CedarUser.getUIPreferences().populateATemplate.opened;
@@ -444,10 +451,25 @@ define([
             vm.showResourceInfo = (uip.hasOwnProperty('infoPanel') && uip.infoPanel.opened );
           }
 
+          function findResourceById(id) {
+            console.log('findResourceById ' + id);
+
+            // find resource from list
+            var result = null;
+            for (var i = 0, len = vm.resources.length; i < len; i++) {
+              if (vm.resources[i]['@id'] === id) {
+                result = vm.resources[i];
+                break;
+              }
+            }
+            console.log(result);
+            return result;
+          }
+
           function init() {
-            //console.log("SearchAndBrowse.init()");
+            console.log("init");
             //console.log(vm.params);
-            //console.log($location.search());
+            console.log($location.search());
             vm.isSearching = false;
             if (vm.params.sharing) {
               if (vm.params.sharing == 'shared-with-me') {
@@ -468,8 +490,12 @@ define([
               }
               getFacets();
               doSearch(vm.params.search);
+
             } else if (vm.params.folderId) {
               vm.selectedResource = null;
+              if (vm.params.resourceId) {
+                vm.selectedResource = findResourceById(vm.params.resourceId);
+              }
               getFacets();
               var currentFolderId = decodeURIComponent(vm.params.folderId);
               getFolderContentsById(currentFolderId);
@@ -669,6 +695,27 @@ define([
               }
             }
           }
+
+          function getResource(id) {
+
+            // remove resource from list
+            var index;
+            for (var i = 0, len = vm.resources.length; i < len; i++) {
+              if (vm.resources[i]['@id'] === resource['@id']) {
+                index = i;
+                break;
+              }
+            }
+            if (i > -1) {
+              vm.resources.splice(index, 1);
+            }
+            // remove current selection
+            vm.selectedResource = null;
+          }
+
+
+
+
 
           function removeResource(resource) {
 
@@ -877,6 +924,7 @@ define([
 
 
           function goToFolder(folderId) {
+            console.log('goToFolder ' + vm.onDashboard());
             if (vm.onDashboard()) {
               $location.url(FrontendUrlService.getFolderContents(folderId));
             } else {
@@ -903,6 +951,7 @@ define([
 
           // TBD this blows up the current user, not sure why
           function resetFilters() {
+            console.log('resetFilters');
             var updates = {};
             for (var nodeType in vm.resourceTypes) {
               vm.resourceTypes[nodeType] = true;
@@ -933,6 +982,7 @@ define([
           }
 
           function setSortOption(option) {
+            console.log('setSortOption');
             setSortOptionUI(option);
             UISettingsService.saveUIPreference('folderView.sortBy', vm.sortOptionField);
             init();
@@ -993,6 +1043,7 @@ define([
           }
 
           function toggleResourceType(type) {
+            console.log('toggleResourceType');
             vm.resourceTypes[type] = !vm.resourceTypes[type];
             UISettingsService.saveUIPreference('resourceTypeFilters.' + type, vm.resourceTypes[type]);
             init();
@@ -1003,7 +1054,9 @@ define([
            */
 
           $scope.$on('$routeUpdate', function () {
+            console.log('route update');
             vm.params = $location.search();
+            console.log('reouteUpdate ');console.log(vm.params);
             init();
           });
 
@@ -1020,6 +1073,7 @@ define([
 
 
           $scope.refreshWorkspace = function (resource) {
+            console.log('refreshWorkspace');
             vm.params = $location.search();
             init();
             if (resource) {
@@ -1061,6 +1115,7 @@ define([
           }
 
           function resetSelected() {
+            console.log('resetSelected');
             vm.selectedResource = null;
           }
 
