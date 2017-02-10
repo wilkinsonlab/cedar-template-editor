@@ -140,7 +140,6 @@ define([
           };
 
           vm.startDescriptionEditing = function () {
-            console.log('startDescriptionEditing')
             var resource = vm.getSelection();
             if (resource != null) {
               vm.editingDescription = true;
@@ -169,7 +168,6 @@ define([
 
           // show the info panel with this resource or find one
           vm.showInfoPanel = function () {
-            console.log('showInfoPanel');
             if (vm.isSharedMode) {
               resetSelected();
             } else if (!vm.selectedResource) {
@@ -268,7 +266,6 @@ define([
           };
 
           vm.updateDescription = function () {
-            console.log('updateDescription')
             vm.editingDescription = false;
             var resource = vm.getSelection();
             if (resource != null) {
@@ -415,6 +412,7 @@ define([
           init();
 
           function setUIPreferences() {
+
             var uip = CedarUser.getUIPreferences();
             //vm.showFavorites = CedarUser.getUIPreferences().populateATemplate.opened;
             vm.resourceTypes = {
@@ -439,15 +437,17 @@ define([
             }
           }
 
+          function setResourceViewMode(mode) {
+            vm.resourceViewMode = mode;
+            UISettingsService.saveUIPreference('folderView.viewMode', mode);
+          }
+
           function updateResourceInfoPanel() {
             var uip = CedarUser.getUIPreferences();
             vm.showResourceInfo = (uip.hasOwnProperty('infoPanel') && uip.infoPanel.opened );
           }
 
           function init() {
-            //console.log("SearchAndBrowse.init()");
-            //console.log(vm.params);
-            //console.log($location.search());
             vm.isSearching = false;
             if (vm.params.sharing) {
               if (vm.params.sharing == 'shared-with-me') {
@@ -533,7 +533,6 @@ define([
           }
 
           function doSharedWithMe() {
-            //console.log("DO shared with me");
             var resourceTypes = activeResourceTypes();
             var limit = UISettingsService.getRequestLimit();
             vm.offset = 0;
@@ -604,7 +603,6 @@ define([
           }
 
           function launchInstance(resource) {
-            console.log('launchInstance');
 
             if (!resource) {
               resource = getSelection();
@@ -637,7 +635,6 @@ define([
           }
 
           function editResource(resource) {
-            console.log('editResource');
             var r = (!r && vm.selectedResource) ? vm.selectedResource : resource;
             if (r) {
               var id = r['@id'];
@@ -1103,10 +1100,7 @@ define([
             }
           }
 
-          function setResourceViewMode(mode) {
-            vm.resourceViewMode = mode;
-            UISettingsService.saveUIPreference('folderView.viewMode', mode);
-          }
+
 
           // open the move modal
           function showMoveModal(resource) {
