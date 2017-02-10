@@ -106,6 +106,7 @@ define([
 
       var parseElement = function () {
         if (!$rootScope.isRuntime() && scope.element) {
+          console.log('parseElement'); console.log(scope.element);
           if (angular.isArray(scope.model)) {
             angular.forEach(scope.model, function (m) {
               $rootScope.findChildren($rootScope.propertiesOf(scope.element), m);
@@ -156,8 +157,9 @@ define([
       // add a multiple cardinality element
       scope.selectedTab = 0;
       scope.addElement = function () {
-        console.log('addElement');
+
         if ($rootScope.isRuntime()) {
+          console.log('addElement');
           if ((!scope.element.maxItems || scope.model.length < scope.element.maxItems)) {
             var seed = {};
             console.log(scope.model);

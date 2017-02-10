@@ -66,6 +66,8 @@ define([
 
     // Used in cedar-template-element.directive.js, form.directive
     $rootScope.findChildren = function (iterator, parentModel, parentKey, level) {
+      console.log('findChildren');
+
       var ctx, min, type, i;
       angular.forEach(iterator, function (value, name) {
         // Add @context information to instance
@@ -109,6 +111,8 @@ define([
               }
             }
           } else {
+
+            console.log(parentModel[name]);
 
             // Assign empty field instance model to $scope.model only if it does not exist
             if (!parentModel[name]) {
@@ -492,7 +496,7 @@ define([
     };
 
     // use the new form and hide the old form
-    $rootScope.useNewForm = true;
+    $rootScope.useNewForm = false;
 
 
   };

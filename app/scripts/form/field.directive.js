@@ -23,6 +23,8 @@ define([
 
       var MIN_OPTIONS = 2;
 
+      console.log($scope.model);
+
       var setDirectory = function () {
         var p = $rootScope.propertiesOf($scope.field);
         var state = p._tmp && p._tmp.state || "completed";
@@ -271,6 +273,7 @@ define([
       // Sets UI selections based on the default options
       $scope.defaultOptionsToUI = function () {
         if (field._ui.inputType == 'checkbox') {
+          console.log(field);
           $scope.optionsUI = {};
           for (var i = 0; i < field._valueConstraints.literals.length; i++) {
             var literal = field._valueConstraints.literals[i];
@@ -370,6 +373,7 @@ define([
 
       // Set the UI with the values (@value) from the model
       $scope.updateUIFromModel = function () {
+        console.log('updateUIFromModel');
         if (field._ui.inputType == 'checkbox') {
           $scope.optionsUI = {};
           for (var item in $scope.model) {
@@ -465,6 +469,7 @@ define([
 
       // Sets the default @value for non-selection fields (i.e., text, paragraph, date, email, numeric, phone)
       $scope.setDefaultValueIfEmpty = function (m) {
+        console.log('setDefaultValueIfEmpty ');console.log(m);
         if ($rootScope.isRuntime()) {
           if (!$rootScope.isArray(m)) {
             if (!m) {
