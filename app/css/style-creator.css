@@ -9362,6 +9362,13 @@ button {
   width: 100%;
   height: calc(100% - 50px);
 }
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 .controls-bar {
   padding: 10px 5px 0 5px;
   background: #2e5365;

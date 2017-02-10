@@ -353,7 +353,7 @@
                     <div class="folderIconContainer">
                       <i style="font-size:20px" class="fa" ng-class="dc.getResourceIconClass(resource)"></i>
                     </div>
-                    <div class="folderTitle">{{ resource.displayName }}</div>
+                    <div class="folderTitle unselectable">{{ resource.displayName }}</div>
 
                     <div ng-if="dc.onDashboard()" class="btn-group dropdown" id="{{getId(resource, 'populate')}}">
                       <button style="display:none" title="More"
@@ -362,8 +362,7 @@
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="{{getId(resource, 'populate')}}">
 
-                        <li><a href="#" ng-click="dc.editResource()">Open</a></li>
-                        <!--<li ng-if="!dc.isFolder()"><a href="#" ng-click="dc.editResource(resource)">Edit</a></li>-->
+                        <li><a href="#" ng-click="dc.goToResource(resource)">Open</a></li>
                         <li><a href="#" ng-click="dc.showInfoPanel()">Info</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#" ng-click="dc.showShareModal(resource)"
@@ -401,7 +400,7 @@
 
 
                     </div>
-                    <div class="title"
+                    <div class="title unselectable"
                         style="text-align:center;height:40px;padding:10px;margin-top:20px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
                       {{ resource.displayName }}
                     </div>
@@ -466,9 +465,9 @@
 
                 <div class="cell type"><i ng-class="dc.getResourceIconClass(resource)"
                     class="btn btn-sm btn-info btn-circle fa large-icon " aria-hidden="true"></i></div>
-                <div class="cell resource">{{ resource.displayName }}</div>
-                <div class="cell date">{{ resource.createdOnTS | prettyDate }}</div>
-                <div class="cell date">{{ resource.lastUpdatedOnTS | prettyDate }}
+                <div class="cell resource unselectable">{{ resource.displayName }}</div>
+                <div class="cell date unselectable">{{ resource.createdOnTS | prettyDate }}</div>
+                <div class="cell date unselectable">{{ resource.lastUpdatedOnTS | prettyDate }}
 
                   <div class="btn-group dropdown" id="{{getId(resource, 'list')}}">
                     <button style="display:none" title="More" class="btn btn-default dropdown-toggle trigger"
@@ -476,7 +475,7 @@
                         class="btn btn-sm btn-circle fa fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="{{getId(resource, 'list')}}">
-                      <li><a href="#" ng-click="dc.editResource()">Open</a></li>
+                      <li><a href="#" ng-click="dc.goToResource(resource)">Open</a></li>
                       <li><a href="#" ng-click="dc.showInfoPanel()">Info</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="#" ng-click="dc.showShareModal(resource)">Share...</a></li>
@@ -501,9 +500,9 @@
                 <div class="cell type" ng-class="dc.getResourceTypeClass(resource)"><i
                     ng-class="dc.getResourceIconClass(resource)"
                     class="btn btn-sm btn-info btn-circle fa large-icon " aria-hidden="true"></i></div>
-                <div class="cell resource">{{ resource.displayName }}</div>
-                <div class="cell date">{{ resource.createdOnTS | prettyDate }}</div>
-                <div class="cell date">{{ resource.lastUpdatedOnTS | prettyDate }}
+                <div class="cell resource unselectable">{{ resource.displayName }}</div>
+                <div class="cell date unselectable">{{ resource.createdOnTS | prettyDate }}</div>
+                <div class="cell date unselectable">{{ resource.lastUpdatedOnTS | prettyDate }}
 
                   <div ng-if="dc.onDashboard()" class="btn-group dropdown" id="{{getId(resource, 'list')}}">
                     <button style="display:none" title="More" class="btn btn-default dropdown-toggle trigger"
@@ -563,7 +562,7 @@
 
             <div class="col-sm-10">
               <div class="title" ng-if="dc.getSelectedNode()" ng-class="dc.getSelectedNode().nodeType">
-                <i class="fa" ng-class="dc.getResourceIconClass(dc.getSelectedNode())"></i> <span
+                <i class="fa" ng-class="dc.getResourceIconClass(dc.getSelectedNode())"></i> <span class="unselectable"
                   ng-bind="dc.getSelectedNode().displayName"></span>
               </div>
               <div class="title" ng-if="!dc.getSelectedNode()">

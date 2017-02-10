@@ -604,6 +604,7 @@ define([
           }
 
           function launchInstance(resource) {
+            console.log('launchInstance');
 
             if (!resource) {
               resource = getSelection();
@@ -621,10 +622,8 @@ define([
             }
 
             if (r) {
-
               //vm.params.search = null;
-              var params = $location.search('');
-
+              //var params = $location.search('');
               if (r.nodeType == 'folder') {
                 goToFolder(r['@id']);
               } else {
@@ -638,11 +637,8 @@ define([
           }
 
           function editResource(resource) {
-            var r = resource;
-            if (!r && vm.selectedResource) {
-              r = vm.selectedResource;
-            }
-
+            console.log('editResource');
+            var r = (!r && vm.selectedResource) ? vm.selectedResource : resource;
             if (r) {
               var id = r['@id'];
               if (typeof vm.pickResourceCallback === 'function') {
