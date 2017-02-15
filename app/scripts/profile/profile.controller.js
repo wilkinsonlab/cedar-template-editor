@@ -11,6 +11,7 @@ define([
   function ProfileController($rootScope, $scope, UrlService, HeaderService, UserService, CONST) {
 
     $rootScope.pageTitle = 'Profile';
+    $rootScope.documentTitle = 'Profile';
 
     // Inject constants
     $scope.CONST = CONST;
@@ -20,7 +21,7 @@ define([
 
     $scope.getTokenValidity = function () {
       return UserService.getTokenValiditySeconds();
-    }
+    };
 
     $scope.urlService = UrlService;
   };

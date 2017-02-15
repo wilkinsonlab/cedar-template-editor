@@ -144,7 +144,9 @@
     "addMore": "Add more",
     "deleteTerm": "Delete term",
     "deleteMapping": "Delete mapping",
-    "sortBy": "Sort by"
+    "sortBy": "Sort by",
+    "templateJSON": "Template JSON",
+    "metadataJSON": "Metadata JSON"
   },
   "SERVER": {
     "FOLDER": {
@@ -210,6 +212,10 @@
       "update": {
         "success": "The metadata have been saved.",
         "error": "There was an error while saving the metadata!<br /><br />VIEW TECHNICAL DETAILS!"
+      },
+      "update-title": {
+        "success": "The document title has been updated.",
+        "error": "There was an error while updated the document title!<br /><br />VIEW TECHNICAL DETAILS!"
       },
       "load": {
         "error": "There was an error while loading the metadata!<br /><br />VIEW TECHNICAL DETAILS!"

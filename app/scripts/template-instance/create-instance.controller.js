@@ -85,9 +85,10 @@ define([
         // $scope.instance['@id'] = $rootScope.idBasePath + $rootScope.generateGUID();
         $scope.instance['schema:isBasedOn'] = $routeParams.templateId;
         // Create fields that will store information used by the UI
-        $scope.instance['schema:name'] = $scope.form._ui.title + $translate.instant("GENERATEDVALUE.instanceTitle")
-        $scope.instance['schema:description'] = $scope.form._ui.description + $translate.instant(
-                "GENERATEDVALUE.instanceDescription");
+        //$scope.instance['schema:name'] = $scope.form._ui.title + $translate.instant("GENERATEDVALUE.instanceTitle")
+        $scope.instance['schema:name'] = $rootScope.documentTitle;
+        //$scope.instance['schema:description'] = $scope.form._ui.description + $translate.instant(
+        //        "GENERATEDVALUE.instanceDescription");
         // Make create instance call
         AuthorizedBackendService.doCall(
             TemplateInstanceService.saveTemplateInstance(QueryParamUtilsService.getFolderId(), $scope.instance),
@@ -113,10 +114,31 @@ define([
               UIMessageService.flashSuccess('SERVER.INSTANCE.update.success', null, 'GENERIC.Updated');
               owner.enableSaveButton();
               $rootScope.$broadcast("form:clean");
+
+              $scope.updateTitle($rootScope.documentTitle);
+
             },
             function (err) {
               UIMessageService.showBackendError('SERVER.INSTANCE.update.error', err);
               owner.enableSaveButton();
+            }
+        );
+      }
+    };
+
+    $scope.updateTitle = function(newTitle) {
+      if ($scope.instance['schema:name'] !== newTitle) {
+
+        // save the new title
+        AuthorizedBackendService.doCall(
+            TemplateInstanceService.updateTemplateInstance($scope.instance['@id'], {'schema:name': newTitle}),
+            function (response) {
+              UIMessageService.flashSuccess('SERVER.INSTANCE.update-title.success', null, 'GENERIC.Updated');
+              $scope.instance['schema:name'] =  newTitle;
+              refresh();
+            },
+            function (err) {
+              UIMessageService.showBackendError('SERVER.INSTANCE.update-title.error', err);
             }
         );
       }

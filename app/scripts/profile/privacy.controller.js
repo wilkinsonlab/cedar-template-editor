@@ -13,6 +13,7 @@ define([
     console.log('privacy controller');
 
     $rootScope.pageTitle = 'Privacy';
+    $rootScope.documentTitle = 'Privacy';
 
     // Inject constants
     $scope.CONST = CONST;

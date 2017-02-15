@@ -141,7 +141,7 @@ button {
   color: @header-text-color;
   background-color: @header-bg-color;
   margin-bottom: 0;
-  height: 80px;
+  height: 50px;
   border: none;
 
   &.metadata {
@@ -228,40 +228,32 @@ button {
     margin-top: 5px;
     margin-left: 10px;
 
+    .document-title {
+      color: @white;
+      font-size: 18px;
+      background: transparent;
+      outline: none;
+      border: 1px solid transparent;
+      width: calc(~"100% - 100px");
+    }
+
     .back-arrow {
       color: @white;
-      font-size: 16px;
-      margin: 0 0 0 10px;
+      font-size: 18px;
       font-weight: 100;
-
-      @media (min-width: @screen-sm-min) {
-        font-size: 16px;
-      }
+      width: 26px;
     }
 
     .back-arrow-click {
-      position: absolute;
-      border: 0px solid red;
-      width: 46px;
-      height: 46px;
       cursor: pointer;
-      z-index: 10;
-      top: -10px;
-      left: 10px;
+      padding: 6px 0;
     }
 
     .page-title {
       color: @white;
       font-size: 18px;
-      margin: 0 0 0 10px;
-      font-weight: 200;
-    }
-
-    .document-title {
-      color: @white;
-      font-size: 18px;
-      margin: 0 0 0 10px;
-      font-weight: 200;
+      postion: relative;
+      top: -4px;
     }
 
     @media (min-width: @screen-sm-min) {
@@ -360,7 +352,7 @@ button {
 }
 
 .navbar.metadata {
-  background-color: black;
+  background-color: @header-template;
 }
 
 #angular-views-entry {
@@ -368,7 +360,6 @@ button {
   top: 50px;
   width: 100%;
   height: calc(~"100% - 50px");
-
 }
 
 .controls-bar {
@@ -431,18 +422,18 @@ button {
         margin: 0 5px;
         &.menu {
           width: 15px;
-          margin:0;
-          position:relative;
-          left:-12px;
+          margin: 0;
+          position: relative;
+          left: -12px;
           i {
-            font-size:12px;
+            font-size: 12px;
 
           }
 
         }
       }
       button:disabled {
-        color:#ccc;
+        color: #ccc;
       }
       button:hover {
         color: #ccc;
@@ -6926,7 +6917,6 @@ table.apiKey {
   background: #ccc; // manage scrollbar thumb background color here
 }
 
-
 #rename-modal, #new-folder-modal, #move-modal, #copy-modal, #share-modal, #airr-submission-modal {
 
   .modal-header {
@@ -7084,12 +7074,18 @@ table.apiKey {
         overflow-y: scroll;
         .file-upload {
           .row {
-            margin-top:10px ;
+            margin-top: 10px;
             .asset-upload {
-              display:table-cell;text-align:center;vertical-align:middle;width:180px;height:180px;border:3px dashed #ccc;background:#eee;
+              display: table-cell;
+              text-align: center;
+              vertical-align: middle;
+              width: 180px;
+              height: 180px;
+              border: 3px dashed #ccc;
+              background: #eee;
             }
             .upload-result {
-              min-height:30px;
+              min-height: 30px;
             }
           }
         }
@@ -7359,12 +7355,12 @@ table.apiKey {
       }
       &.no-selection {
         padding: 50px 0 100px 0;
-        color:#ccc;
+        color: #ccc;
         .no-file {
-          font-size:50px
+          font-size: 50px
         }
         .no-message {
-          font-size:18px
+          font-size: 18px
         }
       }
     }

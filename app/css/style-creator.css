@@ -9158,7 +9158,7 @@ button {
   color: #fff;
   background-color: #2e5365;
   margin-bottom: 0;
-  height: 80px;
+  height: 50px;
   border: none;
 }
 .navbar.metadata {
@@ -9236,38 +9236,29 @@ button {
   margin-top: 5px;
   margin-left: 10px;
 }
+.navbar .navbar-back .document-title {
+  color: #ffffff;
+  font-size: 18px;
+  background: transparent;
+  outline: none;
+  border: 1px solid transparent;
+  width: calc(100% - 100px);
+}
 .navbar .navbar-back .back-arrow {
   color: #ffffff;
-  font-size: 16px;
-  margin: 0 0 0 10px;
+  font-size: 18px;
   font-weight: 100;
-}
-@media (min-width: 768px) {
-  .navbar .navbar-back .back-arrow {
-    font-size: 16px;
-  }
+  width: 26px;
 }
 .navbar .navbar-back .back-arrow-click {
-  position: absolute;
-  border: 0px solid red;
-  width: 46px;
-  height: 46px;
   cursor: pointer;
-  z-index: 10;
-  top: -10px;
-  left: 10px;
+  padding: 6px 0;
 }
 .navbar .navbar-back .page-title {
   color: #ffffff;
   font-size: 18px;
-  margin: 0 0 0 10px;
-  font-weight: 200;
-}
-.navbar .navbar-back .document-title {
-  color: #ffffff;
-  font-size: 18px;
-  margin: 0 0 0 10px;
-  font-weight: 200;
+  postion: relative;
+  top: -4px;
 }
 @media (min-width: 768px) {
   .navbar .navbar-back {
@@ -9354,7 +9345,7 @@ button {
   background-color: #ffffff;
 }
 .navbar.metadata {
-  background-color: black;
+  background-color: #2e5365;
 }
 #angular-views-entry {
   position: relative;
@@ -15342,7 +15333,7 @@ table.apiKey td {
   overflow-y: scroll;
 }
 #airr-submission-modal .modal-dialog .modal-content .modal-body .file-upload .row {
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 #airr-submission-modal .modal-dialog .modal-content .modal-body .file-upload .row .asset-upload {
   display: table-cell;
