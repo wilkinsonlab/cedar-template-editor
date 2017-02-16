@@ -49,6 +49,7 @@
 @divider: #B6B6B6;
 
 @lt-gray: #F8F8F8;
+@background-gray:#EEEEEE;
 @dark-gray: #616161;
 @med-gray: #9E9E9E;
 
@@ -87,7 +88,7 @@ html, body {
 }
 
 body {
-  background: @lt-gray;
+  background: @background-gray;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #333;
   height: 100%;
@@ -714,6 +715,18 @@ button {
       margin: 40px 0;
       font-size: 1.2em;
       color: #666;
+    }
+
+    .no-selection {
+        padding: 100px 0;
+        color: #ccc;
+        .no-file {
+          font-size: 50px
+        }
+        .no-message {
+          font-size: 18px;
+          padding:20px;
+        }
     }
 
   }

@@ -78,6 +78,7 @@ define([
       $scope.runtimeSuccessMessages = [];
       // Broadcast submitForm event to form-directive.js which will assign the form $scope.model to $scope.instance of this controller
       $scope.$broadcast('submitForm');
+      $scope.instance['schema:name'] = $rootScope.documentTitle;
       // Create instance if there are no required field errors
       //if ($rootScope.isEmpty($scope.emptyRequiredFields) && $rootScope.isEmpty($scope.invalidFieldValues) && $scope.instance['@id'] == undefined) {
       if ($scope.instance['@id'] == undefined) {
@@ -86,7 +87,7 @@ define([
         $scope.instance['schema:isBasedOn'] = $routeParams.templateId;
         // Create fields that will store information used by the UI
         //$scope.instance['schema:name'] = $scope.form._ui.title + $translate.instant("GENERATEDVALUE.instanceTitle")
-        $scope.instance['schema:name'] = $rootScope.documentTitle;
+        //$scope.instance['schema:name'] = $rootScope.documentTitle;
         //$scope.instance['schema:description'] = $scope.form._ui.description + $translate.instant(
         //        "GENERATEDVALUE.instanceDescription");
         // Make create instance call
@@ -108,14 +109,15 @@ define([
       // Update instance
       //else if ($rootScope.isEmpty($scope.emptyRequiredFields) && $rootScope.isEmpty($scope.invalidFieldValues)) {
       else {
+
+
+
         AuthorizedBackendService.doCall(
             TemplateInstanceService.updateTemplateInstance($scope.instance['@id'], $scope.instance),
             function (response) {
               UIMessageService.flashSuccess('SERVER.INSTANCE.update.success', null, 'GENERIC.Updated');
               owner.enableSaveButton();
               $rootScope.$broadcast("form:clean");
-
-              $scope.updateTitle($rootScope.documentTitle);
 
             },
             function (err) {
@@ -126,23 +128,7 @@ define([
       }
     };
 
-    $scope.updateTitle = function(newTitle) {
-      if ($scope.instance['schema:name'] !== newTitle) {
 
-        // save the new title
-        AuthorizedBackendService.doCall(
-            TemplateInstanceService.updateTemplateInstance($scope.instance['@id'], {'schema:name': newTitle}),
-            function (response) {
-              UIMessageService.flashSuccess('SERVER.INSTANCE.update-title.success', null, 'GENERIC.Updated');
-              $scope.instance['schema:name'] =  newTitle;
-              refresh();
-            },
-            function (err) {
-              UIMessageService.showBackendError('SERVER.INSTANCE.update-title.error', err);
-            }
-        );
-      }
-    };
 
     //*********** ENTRY POINT
 

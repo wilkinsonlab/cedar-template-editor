@@ -1206,6 +1206,11 @@ define([
             return vm.totalCount !== Number.MAX_VALUE && vm.totalCount > vm.requestLimit;
           }
 
+          // do we have any resources to show?
+          vm.hasResources = function () {
+            return vm.totalCount > 0;
+          }
+
 
         }
       }
