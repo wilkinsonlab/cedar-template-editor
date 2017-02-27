@@ -1,5 +1,5 @@
 'use strict';
-var WorkspacePage = require('../pages/workspace-new-page.js');
+var WorkspacePage = require('../pages/workspace-page.js');
 var ToastyModal = require('../modals/toasty-modal.js');
 var SweetAlertModal = require('../modals/sweet-alert-modal.js');
 var MoveModal = require('../modals/move-modal.js');
@@ -7,12 +7,14 @@ var ShareModal = require('../modals/share-modal.js');
 var testConfig = require('../config/test-env.js');
 var permissions = require('../config/permissions.js');
 
-xdescribe('folder-permissions', function () {
+describe('folder-permissions', function () {
   var workspacePage;
   var toastyModal;
   var sweetAlertModal;
   var moveModal;
   var shareModal;
+  var sourceFolder;
+  var targetFolder;
 
   beforeEach(function () {
     workspacePage = WorkspacePage;
@@ -28,15 +30,24 @@ xdescribe('folder-permissions', function () {
   });
 
 
-  it("should move a folder owned by current user to a writable folder", function () {
+  xit("should move a folder owned by current user to a writable folder", function () {
     // create source and target folders
-    var sourceFolder = workspacePage.createFolder('Source');
-    var targetFolder = workspacePage.createFolder('Target');
+    sourceFolder = workspacePage.createFolder();
+    targetFolder = workspacePage.createFolder();
 
     // move source to target folder
     workspacePage.moveResource(sourceFolder, 'folder');
     moveModal.moveToDestination(targetFolder);
     toastyModal.isSuccess();
+  });
+
+
+  xit("should delete the source folder from the workspace", function () {
+    workspacePage.deleteResource(sourceFolder, 'folder');
+  });
+
+  xit("should delete the target folder from the workspace", function () {
+    workspacePage.deleteResource(targetFolder, 'folder');
   });
 
 
@@ -61,7 +72,7 @@ xdescribe('folder-permissions', function () {
   });
 
 
-  it("should move a writable folder not owned by current user to a writable folder", function () {
+  xit("should move a writable folder not owned by current user to a writable folder", function () {
     // create source and target shared folders
     var sourceFolder = workspacePage.createFolder('Source');
     var targetFolder = workspacePage.createFolder('Target');
@@ -84,7 +95,7 @@ xdescribe('folder-permissions', function () {
   });
 
 
-  it("should move a writable folder not owned by current user to an unwritable folder", function () {
+  xit("should move a writable folder not owned by current user to an unwritable folder", function () {
     // create source and target shared folders
     var sourceFolder = workspacePage.createFolder('Source');
     var targetFolder = workspacePage.createFolder('Target');
@@ -103,7 +114,7 @@ xdescribe('folder-permissions', function () {
   });
 
 
-  it("should move an unwritable folder not owned by current user to an unwritable folder", function () {
+  xit("should move an unwritable folder not owned by current user to an unwritable folder", function () {
     // create source and target shared folders
     var sourceFolder = workspacePage.createFolder('Source');
     var targetFolder = workspacePage.createFolder('Target');
@@ -124,6 +135,12 @@ xdescribe('folder-permissions', function () {
     moveModal.moveToDestination(targetFolder);
     toastyModal.isError();
   });
+
+  xit('should delete the the test template from the workspace', function () {
+    workspacePage.deleteResource('Protractor', 'template');
+  });
+
+
 
 
 });

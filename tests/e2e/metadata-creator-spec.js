@@ -1,5 +1,5 @@
 'use strict';
-var WorkspacePage = require('../pages/workspace-new-page.js');
+var WorkspacePage = require('../pages/workspace-page.js');
 var MetadataPage = require('../pages/metadata-page.js');
 var TemplatePage = require('../pages/template-creator-page.js');
 var ToastyModal = require('../modals/toasty-modal.js');
@@ -13,7 +13,7 @@ var sampleMetadataUrl ;
 var pageName = 'template';
 
 
-describe('metadata-creator', function () {
+xdescribe('metadata-creator', function () {
   var EC = protractor.ExpectedConditions;
   var metadataPage;
   var workspacePage;
@@ -53,10 +53,6 @@ describe('metadata-creator', function () {
     console.log('sampleTitle' + sampleTitle);
     workspacePage.createResource('template', sampleTitle);
     workspacePage.onWorkspace();
-  });
-
-  it("should wait for sample template to be indexed", function () {
-    browser.sleep(5000);
   });
 
   it("should search for the sample template in the workspace ", function () {

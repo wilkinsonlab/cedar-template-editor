@@ -1,5 +1,5 @@
 'use strict';
-var WorkspacePage = require('../pages/workspace-new-page.js');
+var WorkspacePage = require('../pages/workspace-page.js');
 var MetadataPage = require('../pages/metadata-page.js');
 var TemplatePage = require('../pages/template-creator-page.js');
 var ToastyModal = require('../modals/toasty-modal.js');
@@ -14,7 +14,7 @@ var sampleTemplateUrl;
 var sampleMetadataUrl;
 var pageName = 'template';
 
-describe('workspace', function () {
+xdescribe('workspace', function () {
   var EC = protractor.ExpectedConditions;
   var metadataPage;
   var workspacePage;

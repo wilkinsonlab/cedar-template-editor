@@ -1,6 +1,6 @@
 'use strict';
 
-var WorkspacePage = require('../pages/workspace-new-page.js');
+var WorkspacePage = require('../pages/workspace-page.js');
 
 var ShareModal = function () {
   var EC = protractor.ExpectedConditions;
@@ -128,27 +128,28 @@ var ShareModal = function () {
   this.shareWithUser = function (username, canWrite, isOwner) {
     var usernameField = this.createShareModalUserName();
     browser.wait(EC.visibilityOf(usernameField));
-    usernameField.sendKeys(username);
-    browser.actions().sendKeys(protractor.Key.ENTER).perform();
+    usernameField.sendKeys(username + protractor.Key.ENTER);
+    //browser.actions().sendKeys(protractor.Key.ENTER).perform();
 
-    var permissionsList = this.createShareModalUserPermissions();
-    browser.wait(EC.elementToBeClickable(permissionsList));
-    permissionsList.click();
-
-    if (canWrite) {
-      browser.wait(EC.elementToBeClickable(this.createShareModalUserWritePermission()));
-      this.createShareModalUserWritePermission().click();
-    }
-    else if (isOwner) {
-      browser.wait(EC.elementToBeClickable(this.createShareModalUserOwnerPermission()));
-      this.createShareModalUserOwnerPermission().click();
-    }
-    else {
-      browser.wait(EC.elementToBeClickable(this.createShareModalUserReadPermission()));
-      this.createShareModalUserReadPermission().click();
-    }
+    //var permissionsList = this.createShareModalUserPermissions();
+    //browser.wait(EC.elementToBeClickable(permissionsList));
+    //permissionsList.click();
+    //
+    //if (canWrite) {
+    //  browser.wait(EC.elementToBeClickable(this.createShareModalUserWritePermission()));
+    //  this.createShareModalUserWritePermission().click();
+    //}
+    //else if (isOwner) {
+    //  browser.wait(EC.elementToBeClickable(this.createShareModalUserOwnerPermission()));
+    //  this.createShareModalUserOwnerPermission().click();
+    //}
+    //else {
+    //  browser.wait(EC.elementToBeClickable(this.createShareModalUserReadPermission()));
+    //  this.createShareModalUserReadPermission().click();
+    //}
 
     var addButton = this.createShareModalAddUserButton();
+    browser.wait(EC.visibilityOf(addButton));
     browser.wait(EC.elementToBeClickable(addButton));
     addButton.click();
 

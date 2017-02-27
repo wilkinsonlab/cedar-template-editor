@@ -1,12 +1,12 @@
 'use strict';
 var TemplatePage = require('../pages/template-creator-page.js');
-var WorkspacePage = require('../pages/workspace-new-page.js');
+var WorkspacePage = require('../pages/workspace-page.js');
 var ToastyModal = require('../modals/toasty-modal.js');
 var SweetAlertModal = require('../modals/sweet-alert-modal.js');
 var _ = require('../libs/lodash.min.js');
 
 
-describe('template-creator', function () {
+xdescribe('template-creator', function () {
   var EC = protractor.ExpectedConditions;
 
 
