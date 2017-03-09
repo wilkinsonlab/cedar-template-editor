@@ -44,18 +44,6 @@
           </div>
         </li>
 
-        <!--<li ng-show="dc.onDashboard() && dc.resourceViewMode != 'grid'" id="grid-view-tool">-->
-          <!--<button-->
-              <!--type="button"-->
-              <!--tooltip='{{"HELP.viewAsGrid" | translate}}'-->
-              <!--tooltip-trigger-->
-              <!--tooltip-animation="false"-->
-              <!--tooltip-placement="bottom"-->
-              <!--data-toggle="tooltip"-->
-              <!--ng-click="dc.setResourceViewMode('grid')"><i-->
-              <!--class="fa fa-th inline"></i></button>-->
-        <!--</li>-->
-
         <li ng-show="dc.onDashboard()" id="grid-view-tool">
           <button type="button"
               tooltip='{{"HELP.viewAsList" | translate}}'
@@ -67,7 +55,6 @@
             <i class="inline fa " ng-class="{'fa-list-ul': dc.resourceViewMode === 'grid', 'fa-th': dc.resourceViewMode === 'list'}"></i></button>
         </li>
 
-
         <li  ng-if="dc.onDashboard()" class="toggleDetails" ng-class="{'hidePanel':dc.infoShowing(), 'showPanel':!dc.infoShowing()}" >
           <button type="button"
               tooltip="{{ dc.toggleDirection() | translate  }}"
@@ -77,7 +64,6 @@
               data-toggle="tooltip"
               ng-click="dc.toggleInfoPanel()"><i class="fa fa-info "></i></button>
         </li>
-
 
         <li ng-if="dc.onDashboard()" id="workspace-sort-tool">
           <div class="btn-group dropdown">
@@ -120,7 +106,6 @@
         </li>
       </ul>
     </div>
-
   </div>
 </div>
 
@@ -174,7 +159,6 @@
                         ng-click="dc.toggleResourceType('template')"><i
                         class="btn btn-sm btn-info btn-circle fa large-icon fa-file-text template"
                         ng-class="{ active: dc.isResourceTypeActive('template') }"></i></button>
-
                   </li>
                   <li>
                     <button tooltip="{{dc.showOrHide('element')}} {{'GENERIC.Element' | translate}}"
@@ -186,7 +170,6 @@
                         ng-click="dc.toggleResourceType('element')"><i
                         class="btn btn-sm btn-info btn-circle fa large-icon  fa-sitemap element"
                         ng-class="{ active: dc.isResourceTypeActive('element') }"></i></button>
-
                   </li>
                   <li>
                     <button tooltip="{{dc.showOrHide('instance')}} {{'GENERIC.Metadata' | translate}}"
@@ -270,7 +253,7 @@
 
                         <cedar-dropdown-menu class="dropdown-menu " aria-labelledby="{{getId(resource, 'populate')}}"
                             resource="resource" go-to="dc.goToResource" share="dc.showShareModal"
-                            move="dc.showMoveModal" copy="dc.showCopyModal" delete="dc.deleteResource"
+                            move="dc.showMoveModal" delete="dc.deleteResource"
                             copy="dc.showCopyModal" rename="dc.showRenameModal"
                             can-not-populate="dc.canNotPopulate" can-not-write="dc.canNotWrite">
                         </cedar-dropdown-menu>
@@ -281,7 +264,6 @@
                 </div>
               </div>
               <div class="grid-view" style="height:auto" ng-if="dc.resourceViewMode == 'grid'">
-
 
                 <div ng-if="!dc.isFolder(resource)"
                     class="form-box-container"
@@ -300,7 +282,6 @@
 
                       <div style="text-align:center;padding-top:20px"><i style="font-size:30px;" class="fa"
                           ng-class="dc.getResourceIconClass(resource)"></i>
-
 
                       </div>
                       <div class="title"
@@ -591,7 +572,6 @@
     </div>
     <!-- end of floating plus icon section -->
 
-  </div>
   </div>
 
 </section>

@@ -171,8 +171,7 @@ define([
 
             vm.cancelDescriptionEditing();
             vm.selectedResource = resource;
-            vm.canNotWrite = !vm.canWrite();
-            vm.canNotPopulate = !vm.isTemplate();
+
 
             // TODO this makes the hash work but messes up the right click context menu
             //var id = resource['@id'];
@@ -235,10 +234,10 @@ define([
                 function (response) {
 
                   $timeout(function () {
-                    console.log('got details');
                     vm.selectedResource = response;
                     vm.canNotWrite = !vm.canWrite();
                     vm.canNotPopulate = !vm.isTemplate();
+                    console.log('canNotWrite ' + vm.canNotWrite);
                   }, 0);
 
                 },
@@ -1075,6 +1074,10 @@ define([
           $scope.hideModal = function (id) {
             jQuery('#' + id).modal('hide');
           };
+
+          $scope.$watch('canNotWrite', function (newValue, oldValue) {
+            console.log('canNotWrite ' + newValue + ' '  + oldValue);
+          });
 
 
           /**
